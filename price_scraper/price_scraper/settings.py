@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'price_compare',
-    'users',
+    'apps.users',
+    'apps.stores',
+    'apps.products',
+    'apps.price_lookup',
 ]
 
 MIDDLEWARE = [
