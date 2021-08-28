@@ -10,3 +10,5 @@ class CategoryTest(TestCase):
 
         category = Category.objects.create(name=NAME)
         self.assertEqual(category.name, NAME)
+
+    def test_create_store(self):
