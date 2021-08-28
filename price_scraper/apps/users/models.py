@@ -8,7 +8,7 @@ from .managers import CustomUserManager
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_("email_address"), unique=True)
-    favourites = models.ManyToManyField("price_compare.Product", related_name="favourites")
+    favourites = models.ManyToManyField("products.Product", related_name="favourites")
 
     objects = CustomUserManager()
 
