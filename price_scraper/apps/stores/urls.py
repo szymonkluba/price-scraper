@@ -6,6 +6,7 @@ from .views import StoreViewSet
 router = DefaultRouter()
 router.register(r'stores', StoreViewSet)
 
+app_name = 'stores'
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include((router.urls, app_name), namespace=app_name))
 ]
