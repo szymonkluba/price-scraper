@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from price_scraper.apps.stores.models import Store
-from price_scraper.apps.stores.serializers import StoreSerializer
+from .models import Store
+from .serializers import StoreSerializer
 
 
 class StoreViewSet(viewsets.ReadOnlyModelViewSet):
