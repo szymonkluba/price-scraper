@@ -13,3 +13,13 @@ class SearchDetails(models.Model):
 
     def __str__(self):
         return f"{self.store.name}: {self.product.name}"
+
+
+class Price(models.Model):
+    price = models.FloatField()
+    available = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    product = models.ForeignKey("products.Product", related_name="product_prices", on_delete=models.CASCADE)
+    store = models.ForeignKey("stores.Store", related_name="store_prices", on_delete=models.CASCADE)
+

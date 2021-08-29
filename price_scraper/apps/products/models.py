@@ -8,15 +8,6 @@ class Category(models.Model):
         return self.name
 
 
-class Price(models.Model):
-    price = models.FloatField()
-    available = models.BooleanField(default=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    product = models.ForeignKey("Product", related_name="product_prices", on_delete=models.CASCADE)
-    store = models.ForeignKey("stores.Store", related_name="store_prices", on_delete=models.CASCADE)
-
-
 class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
