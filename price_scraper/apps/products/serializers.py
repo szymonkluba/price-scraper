@@ -1,13 +1,13 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from .models import Product, Category
 
 
-class ProductSerializer(ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     model = Product
-    fields = ["name", "popularity", "category"]
+    fields = ["name", "popularity", "category", "current_prices"]
 
 
-class CategorySerializer(ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     model = Category
     fields = ["name"]
