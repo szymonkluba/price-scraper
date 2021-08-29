@@ -20,7 +20,7 @@ class FavouritesViewSet(ListUpdateDeleteViewSet):
 
     def list(self, request, *args, **kwargs):
         user = request.user
-        products = user.favourites.objects.all()
+        products = user.favourites.all()
 
         if products is not None:
             serializer = self.get_serializer(products, many=True)
