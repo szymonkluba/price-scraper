@@ -17,9 +17,13 @@ class ProductSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategoryDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ["name", "products"]
 
-    products = serializers.HyperlinkedIdentityField(view_name="products_list")
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["name"]
