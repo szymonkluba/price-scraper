@@ -1,12 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import FavouritesViewSet
+from .views import ProductViewSet
 
 router = DefaultRouter()
-router.register(r'favs', FavouritesViewSet)
+router.register(r'products', ProductViewSet)
 
-app_name = "users"
+app_name = 'products'
 urlpatterns = [
     path('', include((router.urls, app_name), namespace=app_name))
 ]
