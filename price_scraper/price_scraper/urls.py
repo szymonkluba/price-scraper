@@ -24,4 +24,5 @@ urlpatterns = [
     url('', include('apps.users.urls', namespace='users')),
     url('', include('apps.stores.urls', namespace='stores')),
     url('', include('apps.products.urls', namespace='products')),
+    url('', include('apps.price_lookup.urls', namespace='prices')),
 ]
