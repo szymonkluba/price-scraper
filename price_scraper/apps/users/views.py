@@ -2,7 +2,6 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from ..products.models import Product
 from ..products.serializers import ProductSerializer
 
 
