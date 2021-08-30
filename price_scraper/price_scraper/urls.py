@@ -19,7 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.stores.urls', namespace='stores')),
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.authtoken')),
+    url('', include('apps.users.urls', namespace='users')),
+    url('', include('apps.stores.urls', namespace='stores')),
 ]
