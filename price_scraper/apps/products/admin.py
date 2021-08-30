@@ -5,9 +5,11 @@ from . import models
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    fields = ["name", "slug", "category"]
+    readonly_fields = ["slug"]
 
 
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    fields = ["name", "slug"]
+    readonly_fields = ["slug"]

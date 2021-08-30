@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 class Store(models.Model):
     name = models.CharField(max_length=20)
-    slug = models.SlugField(max_length=20)
+    slug = models.SlugField(max_length=20, blank=True)
     url = models.URLField()
 
     def __str__(self):
