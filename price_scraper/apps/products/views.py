@@ -16,10 +16,11 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    lookup_field = "slug"
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
-        instance.update(popularity=F("popularity") + 1)
+        Product.objects.filter(pk=instance.id).update(popularity=F("popularity") + 1)
         serializer = self.get_serializer(instance)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

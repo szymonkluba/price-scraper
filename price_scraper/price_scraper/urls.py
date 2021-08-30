@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.authtoken')),
-    url(r'^users/', include('apps.users.urls', namespace='users')),
-    url(r'^stores/', include('apps.stores.urls', namespace='stores')),
+    url('', include('apps.users.urls', namespace='users')),
+    url('', include('apps.stores.urls', namespace='stores')),
+    url('', include('apps.products.urls', namespace='products')),
 ]
