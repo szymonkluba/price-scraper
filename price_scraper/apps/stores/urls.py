@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import StoreViewSet
 
 router = DefaultRouter()
-router.register('', StoreViewSet)
+router.register(r'stores', StoreViewSet)
 
 app_name = 'stores'
 urlpatterns = [
