@@ -1,10 +1,12 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from .models import Store
 
 
-class StoreSerializer(ModelSerializer):
+class StoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store
-        fields = ["name", "url"]
+        fields = ["name", "url", "products"]
+
+
