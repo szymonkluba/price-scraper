@@ -4,9 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import FavouritesViewSet
 
 router = DefaultRouter()
-router.register(r'favs', FavouritesViewSet)
+router.register(r'favourites', FavouritesViewSet, basename="favourites")
 
 app_name = "users"
-urlpatterns = [
-    path('', include((router.urls, app_name), namespace=app_name))
-]
+urlpatterns = router.urls

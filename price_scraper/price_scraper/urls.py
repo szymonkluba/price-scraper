@@ -16,13 +16,22 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+from apps.users.urls import router as users_router
+from apps.stores.urls import router as stores_router
+from apps.products.urls import router as products_router
+from apps.price_lookup.urls import router as prices_router
+
+router = DefaultRouter()
+router.registry.extend(users_router.registry)
+router.registry.extend(stores_router.registry)
+router.registry.extend(products_router.registry)
+router.registry.extend(prices_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.authtoken')),
-    url('', include('apps.users.urls', namespace='users')),
-    url('', include('apps.stores.urls', namespace='stores')),
-    url('', include('apps.products.urls', namespace='products')),
-    url('', include('apps.price_lookup.urls', namespace='prices')),
+    url('', include(router.urls))
 ]

@@ -5,9 +5,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'products', views.ProductViewSet)
-router.register(r'', views.CategoryViewSet)
+router.register(r'category', views.CategoryViewSet)
 
 app_name = 'products'
-urlpatterns = [
-    path('', include((router.urls, app_name), namespace=app_name))
-]
+urlpatterns = router.urls

@@ -7,6 +7,4 @@ router = DefaultRouter()
 router.register(r'prices', PricesViewSet)
 
 app_name = 'prices'
-urlpatterns = [
-    path('', include((router.urls, app_name), namespace=app_name))
-]
+urlpatterns = router.urls
