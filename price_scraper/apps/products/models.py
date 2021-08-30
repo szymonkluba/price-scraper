@@ -4,14 +4,22 @@ from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(blank=True)
 
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "categories"
+
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    slug = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, blank=True)
     popularity = models.PositiveIntegerField(default=0)
 
     category = models.ForeignKey("Category", related_name="products", on_delete=models.RESTRICT)
@@ -19,7 +27,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None, *args, **kwargs):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
