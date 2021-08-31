@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins, status
+from rest_framework import viewsets, mixins
 
 from .models import Price
 from .serializers import PriceSerializer
@@ -15,5 +15,3 @@ class PricesViewSet(RetrieveListUpdateViewSet):
 
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
-
-    
