@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.reverse import reverse_lazy
 
 from .models import Product, Category
 from ..price_lookup.serializers import PriceSerializer
@@ -22,8 +23,18 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
         model = Category
         fields = ["name", "products"]
 
+    products = serializers.SerializerMethodField()
+
+    def get_products(self, obj):
+        return reverse_lazy("category-products", kwargs={"slug": obj.slug})
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ["name"]
+        fields = ["name", "url"]
+
+    url = serializers.SerializerMethodField()
+
+    def get_url(self, obj):
+        return reverse_lazy("category-detail", kwargs={"slug": obj.slug})

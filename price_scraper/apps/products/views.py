@@ -1,9 +1,10 @@
 from django.db.models import F
-from rest_framework import viewsets, status
+from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Category, Product
 from . import serializers
+from .models import Category, Product
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -17,6 +18,14 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
             return serializers.CategoryDetailSerializer
         return serializers.CategorySerializer
 
+    @action(detail=True)
+    def products(self, request, *args, **kwargs):
+        instance = self.get_object()
+        products = Product.objects.filter(category=instance)
+        serializer = serializers.ProductSerializer(products, many=True)
+
+        return Response(serializer.data)
+
 
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
 
@@ -29,4 +38,4 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         Product.objects.filter(pk=instance.id).update(popularity=F("popularity") + 1)
         serializer = self.get_serializer(instance)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data)
