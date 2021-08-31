@@ -2,19 +2,21 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from ..products.models import Product
 from ..products.serializers import ProductSerializer
 
 
-class ListUpdateDeleteViewSet(mixins.ListModelMixin,
-                              mixins.UpdateModelMixin,
-                              mixins.DestroyModelMixin,
-                              viewsets.GenericViewSet):
+class ListAddDeleteViewSet(mixins.ListModelMixin,
+                           mixins.UpdateModelMixin,
+                           mixins.DestroyModelMixin,
+                           viewsets.GenericViewSet):
     pass
 
 
-class FavouritesViewSet(ListUpdateDeleteViewSet):
+class FavouritesViewSet(ListAddDeleteViewSet):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated, ]
+    lookup_field = "slug"
 
     def list(self, request, *args, **kwargs):
         user = request.user
@@ -26,14 +28,18 @@ class FavouritesViewSet(ListUpdateDeleteViewSet):
 
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def destroy(self, request, *args, **kwargs):
-        product = self.get_object()
-        request.user.favourites.objects.remove(product)
+    def destroy(self, request, slug=None, *args, **kwargs):
+        if slug is not None:
+            product = Product.objects.get(slug=slug)
+            request.user.favourites.remove(product)
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, *args, **kwargs):
-        product = self.get_object()
-        request.user.favourites.objects.add(product)
+    def update(self, request, slug=None, *args, **kwargs):
+        if slug is not None:
+            product = Product.objects.get(slug=slug)
+            request.user.favourites.add(product)
 
-        return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
