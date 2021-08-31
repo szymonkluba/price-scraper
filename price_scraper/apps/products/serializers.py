@@ -12,7 +12,7 @@ class ProductSerializer(serializers.ModelSerializer):
     current_prices = serializers.SerializerMethodField()
 
     def get_current_prices(self, obj):
-        prices = obj.product_prices.order_by('timestamp')
+        prices = obj.product_prices.order_by("store", "-timestamp").distinct("store")
         serializer = PriceSerializer(prices, many=True)
         return serializer.data
 
