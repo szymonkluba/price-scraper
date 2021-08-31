@@ -23,8 +23,9 @@ class FavouritesViewSet(ListAddDeleteViewSet):
         products = user.favourites.all()
 
         if products is not None:
+            products = self.paginate_queryset(products)
             serializer = self.get_serializer(products, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return self.get_paginated_response(serializer.data)
 
         return Response(status=status.HTTP_404_NOT_FOUND)
 

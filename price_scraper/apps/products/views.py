@@ -22,9 +22,10 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     def products(self, request, *args, **kwargs):
         instance = self.get_object()
         products = Product.objects.filter(category=instance)
+        products = self.paginate_queryset(products)
         serializer = serializers.ProductSerializer(products, many=True)
 
-        return Response(serializer.data)
+        return self.get_paginated_response(serializer.data)
 
 
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):

@@ -18,6 +18,7 @@ class StoreViewSet(viewsets.ReadOnlyModelViewSet):
     def products(self, request, *args, **kwargs):
         instance = self.get_object()
         prices = Price.objects.filter(store=instance).order_by('product', '-timestamp').distinct("product")
+        prices = self.paginate_queryset(prices)
         serializer = StorePricesSerializer(prices, many=True)
 
-        return Response(serializer.data)
+        return self.get_paginated_response(serializer.data)
