@@ -6,14 +6,18 @@ class StoreSearchDetails(models.Model):
     price_class = models.CharField(max_length=50)
     available_class = models.CharField(max_length=50)
 
-    store = models.ForeignKey("stores.Store", related_name="store_search", on_delete=models.CASCADE)
+    store = models.OneToOneField("stores.Store", related_name="search_details", on_delete=models.CASCADE, unique=True)
 
 
 class ProductSearchDetails(models.Model):
+
+    class Meta:
+        unique_together = ["store", "product"]
+
     search_url = models.URLField()
 
-    product = models.ForeignKey("products.Product", related_name="product_search", on_delete=models.CASCADE)
-    store = models.ForeignKey("stores.Store", related_name="search_details", on_delete=models.CASCADE)
+    product = models.ForeignKey("products.Product", related_name="links", on_delete=models.CASCADE)
+    store = models.ForeignKey("stores.Store", related_name="products_links", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.store.name}: {self.product.name}"
