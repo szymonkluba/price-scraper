@@ -4,14 +4,7 @@ from .models import Price
 from .serializers import PriceSerializer
 
 
-class RetrieveListUpdateViewSet(mixins.RetrieveModelMixin,
-                                mixins.ListModelMixin,
-                                mixins.UpdateModelMixin,
-                                viewsets.GenericViewSet):
-    pass
-
-
-class PricesViewSet(RetrieveListUpdateViewSet):
+class PricesViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
