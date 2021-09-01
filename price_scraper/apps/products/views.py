@@ -1,5 +1,5 @@
 from django.db.models import F
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -33,6 +33,8 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Product.objects.all()
     serializer_class = serializers.ProductSerializer
     lookup_field = "slug"
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["@name"]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
