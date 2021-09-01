@@ -3,7 +3,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-from price_scraper.apps.price_lookup.models import StoreSearchDetails
+from .models import StoreSearchDetails
 
 
 class NoPageFoundException(Exception):
@@ -11,13 +11,15 @@ class NoPageFoundException(Exception):
 
 
 class LookupWebsite:
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    }
 
     def __init__(self, url):
         self.website = self.get_website(url)
 
-    @staticmethod
-    def get_website(url):
-        website = requests.get(url)
+    def get_website(self, url):
+        website = requests.get(url, headers=self.headers)
         if website.status_code != 200:
             raise NoPageFoundException("No page found for given URL")
         return website
@@ -40,9 +42,10 @@ class PriceLookup:
         price = re.findall(r"\d*\s*\d*\s*\d+", price_tag.string)
         if price:
             return float(price[0].replace(" ", ""))
+        return
 
     def get_availability(self):
         availability_tag = self.soup.select_one(self.available_class)
         if availability_tag:
-            return True
-        return False
+            return False
+        return True
