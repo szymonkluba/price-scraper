@@ -1,10 +1,11 @@
 from django.db.models import F
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from . import serializers
 from .models import Category, Product
+from .utils import update_product_prices, NoPriceUpdateException
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -42,3 +43,21 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(instance)
 
         return Response(serializer.data)
+
+    @action(detail=True)
+    def update_prices(self, request, *args, **kwargs):
+        product = self.get_object()
+        product_links = product.links.all()
+        errors = []
+
+        for product_link in product_links:
+            try:
+                update_product_prices(product, product_link)
+            except NoPriceUpdateException as exception:
+                errors.append(exception.message)
+
+        if errors:
+            if len(errors) == len(product_links):
+                return Response(data={"errors": errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"errors": errors}, status=status.HTTP_202_ACCEPTED)
+        return Response()
