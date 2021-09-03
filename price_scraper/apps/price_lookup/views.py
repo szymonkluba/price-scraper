@@ -14,5 +14,6 @@ class PricesViewSet(ListViewSet):
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_class = PricesFilter
+    filterset_class = PricesFilter
+
 
