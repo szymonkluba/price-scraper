@@ -6,7 +6,7 @@ from rest_framework.reverse import reverse_lazy
 from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
 
 
-class TestFavouritesViews(APITestCase):
+class FavouritesViewsTests(APITestCase):
 
     def setUp(self) -> None:
         self.factory = APIRequestFactory()
