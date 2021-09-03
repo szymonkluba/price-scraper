@@ -6,7 +6,7 @@ from ..products.models import Product
 
 class PricesFilter(FilterSet):
 
-    slug = ModelChoiceFilter(field_name="product_slug", queryset=Product.objects.all())
+    product = ModelChoiceFilter(field_name="product_slug", queryset=Product.objects.all())
 
     class Meta:
         model = Price
