@@ -20,7 +20,7 @@ def update_product_prices(product: Product, product_links: ProductSearchDetails)
     price = prices_scraper.get_price()
     available = prices_scraper.get_availability()
 
-    if price and available:
+    if price is not None and available is not None:
         Price.objects.create(price=price, available=available, store=store, product=product)
         return
     raise NoPriceUpdateException(f"Nie udało się zaktualizować ceny dla sklepu: {store.name}")
