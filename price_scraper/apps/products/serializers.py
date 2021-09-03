@@ -8,10 +8,12 @@ from ..price_lookup.serializers import PriceSerializer
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["name", "slug", "url", "popularity", "category", "current_prices"]
+        fields = ["name", "slug", "url", "popularity", "category", "category_link", "current_prices"]
 
     current_prices = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
+    category_link = serializers.SerializerMethodField()
+    category = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
     def get_current_prices(self, obj):
         prices = obj.product_prices.order_by("store", "-timestamp").distinct("store")
@@ -20,6 +22,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_url(self, obj):
         return reverse_lazy("product-detail", kwargs={"slug": obj.slug})
+
+    def get_category_link(self, obj):
+        return reverse_lazy("category-detail", kwargs={"slug": obj.category.slug})
 
 
 class CategoryDetailSerializer(serializers.ModelSerializer):

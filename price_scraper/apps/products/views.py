@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from . import serializers
 from .models import Category, Product
 from .utils import update_product_prices, NoPriceUpdateException
+from ..price_lookup.price_lookup import NoPageFoundException
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -55,6 +56,8 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
                 update_product_prices(product, product_link)
             except NoPriceUpdateException as exception:
                 errors.append(exception.message)
+            except NoPageFoundException as exception:
+                errors.append(f"{product_link.store.name}: {exception.message}")
 
         if errors:
             if len(errors) == len(product_links):
