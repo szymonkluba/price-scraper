@@ -2,11 +2,17 @@ import re
 
 import requests
 from bs4 import BeautifulSoup
+from requests import RequestException
 
 from .models import StoreSearchDetails
 
 
 class NoPageFoundException(Exception):
+    def __init__(self, message):
+        self.message = message
+
+
+class NoConnectionException(Exception):
     def __init__(self, message):
         self.message = message
 
@@ -20,7 +26,11 @@ class LookupWebsite:
         self.website = self.get_website(url)
 
     def get_website(self, url):
-        website = requests.get(url, headers=self.headers)
+        try:
+            website = requests.get(url, headers=self.headers)
+        except RequestException as exception:
+            print(exception)
+            raise NoConnectionException("Problem z połączeniem")
         if website.status_code != 200:
             raise NoPageFoundException("Nie znaleziono strony produktu")
         return website
@@ -40,8 +50,10 @@ class PriceLookup:
         price_tag = self.soup.select_one(self.price_class)
         if price_tag:
             if price_tag.get("content"):
-                return float(price_tag.get("content"))
-            price = re.findall(r"\d*\s*\d*\s*\d+", price_tag.string)
+                price = price_tag.get("content")
+            else:
+                price = price_tag.string
+            price = re.findall(r"\d*\s*\d*\s*\d+", price)
             if price:
                 return float(price[0].replace(" ", ""))
         return
