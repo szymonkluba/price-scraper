@@ -1,4 +1,4 @@
-from .models import CustomUser
+from price_scraper.apps.users.models import CustomUser
 from django.test import TestCase
 
 

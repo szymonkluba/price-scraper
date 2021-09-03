@@ -2,12 +2,19 @@ import re
 
 import requests
 from bs4 import BeautifulSoup
+from requests import RequestException
 
 from .models import StoreSearchDetails
 
 
 class NoPageFoundException(Exception):
-    pass
+    def __init__(self, message):
+        self.message = message
+
+
+class NoConnectionException(Exception):
+    def __init__(self, message):
+        self.message = message
 
 
 class LookupWebsite:
@@ -19,9 +26,13 @@ class LookupWebsite:
         self.website = self.get_website(url)
 
     def get_website(self, url):
-        website = requests.get(url, headers=self.headers)
+        try:
+            website = requests.get(url, headers=self.headers)
+        except RequestException as exception:
+            print(exception)
+            raise NoConnectionException("Problem z połączeniem")
         if website.status_code != 200:
-            raise NoPageFoundException("No page found for given URL")
+            raise NoPageFoundException("Nie znaleziono strony produktu")
         return website
 
     def get_website_as_text(self):
@@ -31,17 +42,20 @@ class LookupWebsite:
 class PriceLookup:
 
     def __init__(self, website: LookupWebsite, search_params: StoreSearchDetails):
-        self.soup = BeautifulSoup(website, "lxml")
+        self.soup = BeautifulSoup(website.get_website_as_text(), "lxml")
         self.price_class = search_params.price_class
         self.available_class = search_params.available_class
 
     def get_price(self):
         price_tag = self.soup.select_one(self.price_class)
-        if price_tag.get("content"):
-            return float(price_tag.get("content"))
-        price = re.findall(r"\d*\s*\d*\s*\d+", price_tag.string)
-        if price:
-            return float(price[0].replace(" ", ""))
+        if price_tag:
+            if price_tag.get("content"):
+                price = price_tag.get("content")
+            else:
+                price = price_tag.string
+            price = re.findall(r"\d*\s*\d*\s*\d+", price)
+            if price:
+                return float(price[0].replace(" ", ""))
         return
 
     def get_availability(self):

@@ -7,7 +7,7 @@ from .models import Store
 class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = ["name", "url", "store_prices"]
+        fields = ["name", "slug", "url", "store_prices"]
 
     store_prices = serializers.SerializerMethodField()
 
