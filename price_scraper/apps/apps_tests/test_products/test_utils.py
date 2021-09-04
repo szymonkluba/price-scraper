@@ -1,9 +1,9 @@
-from unittest.mock import MagicMock, patch
-
 from apps.price_lookup.models import Price
 from apps.products.utils import NoPriceUpdateException
 from apps.products.utils import update_product_prices
 from django.test import TestCase
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 
 class ProductPricesUpdateTests(TestCase):
@@ -15,9 +15,9 @@ class ProductPricesUpdateTests(TestCase):
         self.search_params.store = self.store
 
     def test_creates_new_price(self) -> None:
-        with patch("apps.price_lookup.price_lookup.LookupWebsite"):
-            with patch("apps.price_lookup.price_lookup.PriceLookup") as MockPriceLookup:
-                with patch.object(Price.objects, "create") as mocked_price:
+        with patch('apps.price_lookup.price_lookup.LookupWebsite'):
+            with patch('apps.price_lookup.price_lookup.PriceLookup') as MockPriceLookup:
+                with patch.object(Price.objects, 'create') as mocked_price:
                     instance = MockPriceLookup()
                     instance.get_price = MagicMock(return_value=100)
                     instance.get_availability = MagicMock(return_value=True)
@@ -31,8 +31,8 @@ class ProductPricesUpdateTests(TestCase):
                     )
 
     def test_raises_no_update_exception_no_price(self) -> None:
-        with patch("apps.price_lookup.price_lookup.LookupWebsite"):
-            with patch("apps.price_lookup.price_lookup.PriceLookup") as MockPriceLookup:
+        with patch('apps.price_lookup.price_lookup.LookupWebsite'):
+            with patch('apps.price_lookup.price_lookup.PriceLookup') as MockPriceLookup:
                 instance = MockPriceLookup()
                 instance.get_price = MagicMock(return_value=None)
                 instance.get_availability = MagicMock(return_value=True)
@@ -41,8 +41,8 @@ class ProductPricesUpdateTests(TestCase):
                     update_product_prices(self.product, self.search_params)
 
     def test_raises_no_update_exception_no_availability(self) -> None:
-        with patch("apps.price_lookup.price_lookup.LookupWebsite"):
-            with patch("apps.price_lookup.price_lookup.PriceLookup") as MockPriceLookup:
+        with patch('apps.price_lookup.price_lookup.LookupWebsite'):
+            with patch('apps.price_lookup.price_lookup.PriceLookup') as MockPriceLookup:
                 instance = MockPriceLookup()
                 instance.get_price = MagicMock(return_value=100)
                 instance.get_availability = MagicMock(return_value=None)

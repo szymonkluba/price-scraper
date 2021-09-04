@@ -1,9 +1,12 @@
-from apps.products.models import Product, Category
+from apps.products.models import Category
+from apps.products.models import Product
 from apps.users.models import CustomUser
 from apps.users.views import FavouritesViewSet
 from rest_framework import status
 from rest_framework.reverse import reverse_lazy
-from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
+from rest_framework.test import APIRequestFactory
+from rest_framework.test import APITestCase
+from rest_framework.test import force_authenticate
 
 
 class FavouritesViewsTests(APITestCase):
@@ -11,18 +14,19 @@ class FavouritesViewsTests(APITestCase):
     def setUp(self) -> None:
         self.factory = APIRequestFactory()
 
-        self.user = CustomUser.objects.create_user(email="test@example.com", password="Secret123")
-        self.category = Category.objects.create(name="TestCategory")
-        self.product = Product(name="TestProduct", category=self.category)
+        self.user = CustomUser.objects.create_user(
+            email='test@example.com', password='Secret123')
+        self.category = Category.objects.create(name='TestCategory')
+        self.product = Product(name='TestProduct', category=self.category)
         self.product.save()
 
         self.favourites = FavouritesViewSet.as_view({
-            "get": "list",
-            "put": "update",
-            "delete": "destroy",
+            'get': 'list',
+            'put': 'update',
+            'delete': 'destroy',
         })
 
-        self.url = "/favourites/"
+        self.url = '/favourites/'
 
     def test_require_login_for_favourites(self) -> None:
         request = self.factory.get(self.url)
@@ -56,16 +60,16 @@ class FavouritesViewsTests(APITestCase):
         response = self.favourites(request)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data["results"]), 1)
+        self.assertEqual(len(response.data['results']), 1)
 
-        result = response.data["results"][0]
+        result = response.data['results'][0]
 
         self.assertEqual(result, {
-            "name": self.product.name,
-            "slug": self.product.slug,
-            "url": reverse_lazy("product-detail", kwargs={"slug": self.product.slug}),
-            "popularity": 0,
-            "category": self.category.name,
-            "category_link": reverse_lazy("category-detail", kwargs={"slug": self.category.slug}),
-            "current_prices": []
+            'name': self.product.name,
+            'slug': self.product.slug,
+            'url': reverse_lazy('product-detail', kwargs={'slug': self.product.slug}),
+            'popularity': 0,
+            'category': self.category.name,
+            'category_link': reverse_lazy('category-detail', kwargs={'slug': self.category.slug}),
+            'current_prices': []
         })
