@@ -22,12 +22,9 @@ def update_product_prices(product: Product, product_links: ProductLinks):
     available = prices_scraper.get_availability()
     image_url = prices_scraper.get_image_url()
 
-    print(image_url)
-    print(product.image_url)
     if not product.image_url and image_url:
         product.image_url = image_url
         product.save()
-    print(product.image_url)
 
     if price is not None and available is not None:
         Price.objects.create(price=price, available=available,

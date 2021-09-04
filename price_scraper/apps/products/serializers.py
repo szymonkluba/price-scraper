@@ -10,12 +10,13 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['name', 'slug', 'url', 'popularity',
-                  'category', 'category_link', 'current_prices', 'image_url']
+                  'category', 'category_link', 'current_prices', 'image_url', 'in_favs']
 
     current_prices = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
     category_link = serializers.SerializerMethodField()
     category = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    in_favs = serializers.SerializerMethodField()
 
     def get_current_prices(self, obj):
         prices = obj.product_prices.order_by(
@@ -28,6 +29,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_category_link(self, obj):
         return reverse_lazy('category-detail', kwargs={'slug': obj.category.slug})
+
+    def get_in_favs(self, obj):
+        request = self.context.get('request')
+        if request:
+            if request.user.is_authenticated and obj in request.user.favourites.all():
+                return True
+        return False
 
 
 class CategoryDetailSerializer(serializers.ModelSerializer):

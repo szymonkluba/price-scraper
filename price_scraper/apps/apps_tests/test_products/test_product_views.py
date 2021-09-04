@@ -48,7 +48,8 @@ class ProductViewsTest(APITestCase):
             'category': self.category.name,
             'category_link': reverse_lazy('category-detail', kwargs={'slug': self.category.slug}),
             'current_prices': [],
-            'image_url': None
+            'image_url': None,
+            'in_favs': False
         })
 
     def test_retrieve(self) -> None:
@@ -64,7 +65,8 @@ class ProductViewsTest(APITestCase):
             'category': self.category.name,
             'category_link': reverse_lazy('category-detail', kwargs={'slug': self.category.slug}),
             'current_prices': [],
-            'image_url': None
+            'image_url': None,
+            'in_favs': False
         })
 
     def test_popularity_counter(self) -> None:
