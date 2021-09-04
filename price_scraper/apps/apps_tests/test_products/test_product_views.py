@@ -14,6 +14,7 @@ from unittest.mock import patch
 class ProductViewsTest(APITestCase):
     EMPTY_PAGE = '<html></html>'
     PAGE_ONE_STORE_DETAILS = '<html><head></head><body><p class="price">100</p></body></html>'
+    PAGE_WITH_IMAGE = '<html><head></head><body><img class="image" src="test_url"><p class="price">100</p></body></html>'
 
     def setUp(self) -> None:
         self.factory = APIRequestFactory()
@@ -177,7 +178,61 @@ class ProductViewsTest(APITestCase):
 
             request = self.factory.get(self.url)
             response = self.update_prices(
-                request=request, slug=self.product.slug)
+                request=request, slug=self.product.slug
+            )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(len(self.product.product_prices.all()), 2)
+
+    def test_updates_product_image(self) -> None:
+        store1 = Store.objects.create(name='TestStore1', url='')
+        StoreSelectors.objects.create(
+            store=store1,
+            image_class='.image',
+            price_class='.price',
+            available_class='.av'
+        )
+
+        self.product.links.create(search_url='https://test.html', store=store1)
+
+        with patch('apps.price_lookup.price_lookup.LookupWebsite') as MockClass:
+            instance = MockClass()
+            instance.get_website_as_text.return_value = self.PAGE_WITH_IMAGE
+
+            request = self.factory.get(self.url)
+            response = self.update_prices(
+                request=request, slug=self.product.slug
+            )
+
+            updated_product = Product.objects.get(slug=self.product.slug)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(updated_product.image_url, 'test_url')
+
+    def test_does_not_change_url_if_present(self):
+        store1 = Store.objects.create(name='TestStore1', url='')
+        StoreSelectors.objects.create(
+            store=store1,
+            image_class='.image',
+            price_class='.price',
+            available_class='.av'
+        )
+
+        self.product.links.create(search_url='https://test.html', store=store1)
+
+        self.product.image_url = 'different_url'
+        self.product.save()
+
+        with patch('apps.price_lookup.price_lookup.LookupWebsite') as MockClass:
+            instance = MockClass()
+            instance.get_website_as_text.return_value = self.PAGE_WITH_IMAGE
+
+            request = self.factory.get(self.url)
+            response = self.update_prices(
+                request=request, slug=self.product.slug
+            )
+
+            updated_product = Product.objects.get(slug=self.product.slug)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(updated_product.image_url, 'different_url')
