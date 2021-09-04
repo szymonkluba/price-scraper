@@ -1,6 +1,6 @@
 from ..price_lookup import price_lookup
 from ..price_lookup.models import Price
-from ..price_lookup.models import ProductSearchDetails
+from ..price_lookup.models import ProductLinks
 from ..products.models import Product
 
 
@@ -10,7 +10,7 @@ class NoPriceUpdateException(Exception):
         self.message = message
 
 
-def update_product_prices(product: Product, product_links: ProductSearchDetails):
+def update_product_prices(product: Product, product_links: ProductLinks):
     url = product_links.search_url
     store = product_links.store
 
@@ -20,6 +20,14 @@ def update_product_prices(product: Product, product_links: ProductSearchDetails)
 
     price = prices_scraper.get_price()
     available = prices_scraper.get_availability()
+    image_url = prices_scraper.get_image_url()
+
+    print(image_url)
+    print(product.image_url)
+    if not product.image_url and image_url:
+        product.image_url = image_url
+        product.save()
+    print(product.image_url)
 
     if price is not None and available is not None:
         Price.objects.create(price=price, available=available,

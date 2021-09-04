@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from requests import RequestException
 
-from .models import StoreSearchDetails
+from .models import StoreSelectors
 
 
 class NoPageFoundException(Exception):
@@ -40,10 +40,11 @@ class LookupWebsite:
 
 class PriceLookup:
 
-    def __init__(self, website: LookupWebsite, search_params: StoreSearchDetails):
+    def __init__(self, website: LookupWebsite, search_params: StoreSelectors):
         self.soup = BeautifulSoup(website.get_website_as_text(), 'lxml')
         self.price_class = search_params.price_class
         self.available_class = search_params.available_class
+        self.image_class = search_params.image_class
 
     def get_price(self):
         price_tag = self.soup.select_one(self.price_class)
@@ -62,3 +63,8 @@ class PriceLookup:
         if availability_tag:
             return False
         return True
+
+    def get_image_url(self):
+        image_tag = self.soup.select_one(self.image_class)
+        if image_tag:
+            return image_tag.get('src')

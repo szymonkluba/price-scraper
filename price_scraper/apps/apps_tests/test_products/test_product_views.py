@@ -1,4 +1,4 @@
-from apps.price_lookup.models import StoreSearchDetails
+from apps.price_lookup.models import StoreSelectors
 from apps.products.models import Category
 from apps.products.models import Product
 from apps.products.views import ProductViewSet
@@ -14,6 +14,7 @@ from unittest.mock import patch
 class ProductViewsTest(APITestCase):
     EMPTY_PAGE = '<html></html>'
     PAGE_ONE_STORE_DETAILS = '<html><head></head><body><p class="price">100</p></body></html>'
+    PAGE_WITH_IMAGE = '<html><head></head><body><img class="image" src="test_url"><p class="price">100</p></body></html>'
 
     def setUp(self) -> None:
         self.factory = APIRequestFactory()
@@ -46,7 +47,8 @@ class ProductViewsTest(APITestCase):
             'popularity': 0,
             'category': self.category.name,
             'category_link': reverse_lazy('category-detail', kwargs={'slug': self.category.slug}),
-            'current_prices': []
+            'current_prices': [],
+            'image_url': None
         })
 
     def test_retrieve(self) -> None:
@@ -62,6 +64,7 @@ class ProductViewsTest(APITestCase):
             'category': self.category.name,
             'category_link': reverse_lazy('category-detail', kwargs={'slug': self.category.slug}),
             'current_prices': [],
+            'image_url': None
         })
 
     def test_popularity_counter(self) -> None:
@@ -95,9 +98,9 @@ class ProductViewsTest(APITestCase):
 
     def test_could_not_update_price_all_stores(self) -> None:
         store1 = Store.objects.create(name='TestStore1', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store1,
-            title_class='a',
+            image_class='a',
             price_class='a',
             available_class='a'
         )
@@ -116,17 +119,17 @@ class ProductViewsTest(APITestCase):
 
     def test_could_not_update_price_some_stores(self) -> None:
         store1 = Store.objects.create(name='TestStore1', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store1,
-            title_class='.title',
+            image_class='.title',
             price_class='.price',
             available_class='.av'
         )
 
         store2 = Store.objects.create(name='TestStore2', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store2,
-            title_class='.a',
+            image_class='.a',
             price_class='.a',
             available_class='.a'
         )
@@ -149,17 +152,17 @@ class ProductViewsTest(APITestCase):
 
     def test_update_prices(self) -> None:
         store1 = Store.objects.create(name='TestStore1', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store1,
-            title_class='.title',
+            image_class='.title',
             price_class='.price',
             available_class='.av'
         )
 
         store2 = Store.objects.create(name='TestStore2', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store2,
-            title_class='.title',
+            image_class='.title',
             price_class='.price',
             available_class='.av'
         )
@@ -175,7 +178,61 @@ class ProductViewsTest(APITestCase):
 
             request = self.factory.get(self.url)
             response = self.update_prices(
-                request=request, slug=self.product.slug)
+                request=request, slug=self.product.slug
+            )
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(len(self.product.product_prices.all()), 2)
+
+    def test_updates_product_image(self) -> None:
+        store1 = Store.objects.create(name='TestStore1', url='')
+        StoreSelectors.objects.create(
+            store=store1,
+            image_class='.image',
+            price_class='.price',
+            available_class='.av'
+        )
+
+        self.product.links.create(search_url='https://test.html', store=store1)
+
+        with patch('apps.price_lookup.price_lookup.LookupWebsite') as MockClass:
+            instance = MockClass()
+            instance.get_website_as_text.return_value = self.PAGE_WITH_IMAGE
+
+            request = self.factory.get(self.url)
+            response = self.update_prices(
+                request=request, slug=self.product.slug
+            )
+
+            updated_product = Product.objects.get(slug=self.product.slug)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(updated_product.image_url, 'test_url')
+
+    def test_does_not_change_url_if_present(self):
+        store1 = Store.objects.create(name='TestStore1', url='')
+        StoreSelectors.objects.create(
+            store=store1,
+            image_class='.image',
+            price_class='.price',
+            available_class='.av'
+        )
+
+        self.product.links.create(search_url='https://test.html', store=store1)
+
+        self.product.image_url = 'different_url'
+        self.product.save()
+
+        with patch('apps.price_lookup.price_lookup.LookupWebsite') as MockClass:
+            instance = MockClass()
+            instance.get_website_as_text.return_value = self.PAGE_WITH_IMAGE
+
+            request = self.factory.get(self.url)
+            response = self.update_prices(
+                request=request, slug=self.product.slug
+            )
+
+            updated_product = Product.objects.get(slug=self.product.slug)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(updated_product.image_url, 'different_url')

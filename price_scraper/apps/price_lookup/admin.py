@@ -8,11 +8,11 @@ class PriceAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.ProductSearchDetails)
-class ProductSearchDetailsAdmin(admin.ModelAdmin):
+@admin.register(models.ProductLinks)
+class ProductLinksAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.StoreSearchDetails)
-class StoreSearchDetailsAdmin(admin.ModelAdmin):
+@admin.register(models.StoreSelectors)
+class StoreSelectorsAdmin(admin.ModelAdmin):
     pass
