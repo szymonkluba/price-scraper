@@ -1,6 +1,6 @@
 from ..price_lookup import price_lookup
 from ..price_lookup.models import Price
-from ..price_lookup.models import ProductSearchDetails
+from ..price_lookup.models import ProductLinks
 from ..products.models import Product
 
 
@@ -10,7 +10,7 @@ class NoPriceUpdateException(Exception):
         self.message = message
 
 
-def update_product_prices(product: Product, product_links: ProductSearchDetails):
+def update_product_prices(product: Product, product_links: ProductLinks):
     url = product_links.search_url
     store = product_links.store
 

@@ -3,6 +3,9 @@ from django.utils.text import slugify
 
 
 class Category(models.Model):
+    class Meta:
+        ordering = ('slug',)
+
     name = models.CharField(max_length=50)
     slug = models.SlugField(blank=True)
 
@@ -21,6 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, blank=True)
     popularity = models.PositiveIntegerField(default=0)
+    image_url = models.URLField(blank=True, null=True)
 
     category = models.ForeignKey(
         'Category', related_name='products', on_delete=models.RESTRICT)

@@ -1,11 +1,11 @@
 from django.db import models
 
 
-class StoreSearchDetails(models.Model):
+class StoreSelectors(models.Model):
     class Meta:
-        verbose_name_plural = 'Stores Search Details'
+        verbose_name_plural = 'Stores Selectors'
 
-    title_class = models.CharField(max_length=50)
+    image_class = models.CharField(max_length=50)
     price_class = models.CharField(max_length=50)
     available_class = models.CharField(max_length=50)
 
@@ -16,10 +16,10 @@ class StoreSearchDetails(models.Model):
         return f'Selectors: {self.store.name}'
 
 
-class ProductSearchDetails(models.Model):
+class ProductLinks(models.Model):
     class Meta:
         unique_together = ['store', 'product']
-        verbose_name_plural = 'Product Search Details'
+        verbose_name_plural = 'Product Links'
 
     search_url = models.URLField()
 
@@ -33,6 +33,7 @@ class ProductSearchDetails(models.Model):
 
 
 class Price(models.Model):
+
     price = models.FloatField()
     available = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)

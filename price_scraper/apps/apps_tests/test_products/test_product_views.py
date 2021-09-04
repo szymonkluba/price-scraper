@@ -1,4 +1,4 @@
-from apps.price_lookup.models import StoreSearchDetails
+from apps.price_lookup.models import StoreSelectors
 from apps.products.models import Category
 from apps.products.models import Product
 from apps.products.views import ProductViewSet
@@ -95,9 +95,9 @@ class ProductViewsTest(APITestCase):
 
     def test_could_not_update_price_all_stores(self) -> None:
         store1 = Store.objects.create(name='TestStore1', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store1,
-            title_class='a',
+            image_class='a',
             price_class='a',
             available_class='a'
         )
@@ -116,17 +116,17 @@ class ProductViewsTest(APITestCase):
 
     def test_could_not_update_price_some_stores(self) -> None:
         store1 = Store.objects.create(name='TestStore1', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store1,
-            title_class='.title',
+            image_class='.title',
             price_class='.price',
             available_class='.av'
         )
 
         store2 = Store.objects.create(name='TestStore2', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store2,
-            title_class='.a',
+            image_class='.a',
             price_class='.a',
             available_class='.a'
         )
@@ -149,17 +149,17 @@ class ProductViewsTest(APITestCase):
 
     def test_update_prices(self) -> None:
         store1 = Store.objects.create(name='TestStore1', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store1,
-            title_class='.title',
+            image_class='.title',
             price_class='.price',
             available_class='.av'
         )
 
         store2 = Store.objects.create(name='TestStore2', url='')
-        StoreSearchDetails.objects.create(
+        StoreSelectors.objects.create(
             store=store2,
-            title_class='.title',
+            image_class='.title',
             price_class='.price',
             available_class='.av'
         )

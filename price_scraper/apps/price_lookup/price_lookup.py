@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from requests import RequestException
 
-from .models import StoreSearchDetails
+from .models import StoreSelectors
 
 
 class NoPageFoundException(Exception):
@@ -40,7 +40,7 @@ class LookupWebsite:
 
 class PriceLookup:
 
-    def __init__(self, website: LookupWebsite, search_params: StoreSearchDetails):
+    def __init__(self, website: LookupWebsite, search_params: StoreSelectors):
         self.soup = BeautifulSoup(website.get_website_as_text(), 'lxml')
         self.price_class = search_params.price_class
         self.available_class = search_params.available_class
