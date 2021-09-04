@@ -10,7 +10,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['name', 'slug', 'url', 'popularity',
-                  'category', 'category_link', 'current_prices']
+                  'category', 'category_link', 'current_prices', 'image_url']
 
     current_prices = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
