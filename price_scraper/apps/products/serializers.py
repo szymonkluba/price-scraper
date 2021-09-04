@@ -38,7 +38,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return False
 
 
-class CategoryDetailSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['name', 'slug', 'products']
@@ -47,14 +47,3 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
 
     def get_products(self, obj):
         return reverse_lazy('category-products', kwargs={'slug': obj.slug})
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ['name', 'slug', 'url']
-
-    url = serializers.SerializerMethodField()
-
-    def get_url(self, obj):
-        return reverse_lazy('category-detail', kwargs={'slug': obj.slug})

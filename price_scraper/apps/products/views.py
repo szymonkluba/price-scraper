@@ -19,11 +19,6 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.CategorySerializer
     lookup_field = 'slug'
 
-    def get_serializer_class(self):
-        if self.action == 'retrieve':
-            return serializers.CategoryDetailSerializer
-        return serializers.CategorySerializer
-
     @action(detail=True)
     def products(self, request, *args, **kwargs):
         instance = self.get_object()
