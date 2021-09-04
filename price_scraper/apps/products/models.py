@@ -14,7 +14,7 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = "categories"
+        verbose_name_plural = 'categories'
 
 
 class Product(models.Model):
@@ -22,7 +22,8 @@ class Product(models.Model):
     slug = models.SlugField(max_length=200, blank=True)
     popularity = models.PositiveIntegerField(default=0)
 
-    category = models.ForeignKey("Category", related_name="products", on_delete=models.RESTRICT)
+    category = models.ForeignKey(
+        'Category', related_name='products', on_delete=models.RESTRICT)
 
     def __str__(self):
         return self.name

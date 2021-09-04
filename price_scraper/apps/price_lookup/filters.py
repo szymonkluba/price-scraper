@@ -1,8 +1,10 @@
-from django_filters import filters, ModelChoiceFilter, CharFilter
+from django_filters import CharFilter
+from django_filters import filters
+from django_filters import ModelChoiceFilter
 from django_filters.rest_framework import FilterSet
 
-from .models import Price
 from ..products.models import Product
+from .models import Price
 
 
 class PricesFilter(FilterSet):
@@ -13,8 +15,8 @@ class PricesFilter(FilterSet):
     #     queryset=Product.objects.all()
     # )
 
-    product = CharFilter(field_name="product__slug")
+    product = CharFilter(field_name='product__slug')
 
     class Meta:
         model = Price
-        fields = ("product", )
+        fields = ('product', )

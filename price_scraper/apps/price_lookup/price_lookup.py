@@ -1,5 +1,4 @@
 import re
-
 import requests
 from bs4 import BeautifulSoup
 from requests import RequestException
@@ -30,9 +29,9 @@ class LookupWebsite:
             website = requests.get(url, headers=self.headers)
         except RequestException as exception:
             print(exception)
-            raise NoConnectionException("Problem z połączeniem")
+            raise NoConnectionException('Problem z połączeniem')
         if website.status_code != 200:
-            raise NoPageFoundException("Nie znaleziono strony produktu")
+            raise NoPageFoundException('Nie znaleziono strony produktu')
         return website
 
     def get_website_as_text(self):
@@ -42,20 +41,20 @@ class LookupWebsite:
 class PriceLookup:
 
     def __init__(self, website: LookupWebsite, search_params: StoreSearchDetails):
-        self.soup = BeautifulSoup(website.get_website_as_text(), "lxml")
+        self.soup = BeautifulSoup(website.get_website_as_text(), 'lxml')
         self.price_class = search_params.price_class
         self.available_class = search_params.available_class
 
     def get_price(self):
         price_tag = self.soup.select_one(self.price_class)
         if price_tag:
-            if price_tag.get("content"):
-                price = price_tag.get("content")
+            if price_tag.get('content'):
+                price = price_tag.get('content')
             else:
                 price = price_tag.string
-            price = re.findall(r"\d*\s*\d*\s*\d+", price)
+            price = re.findall(r'\d*\s*\d*\s*\d+', price)
             if price:
-                return float(price[0].replace(" ", ""))
+                return float(price[0].replace(' ', ''))
         return
 
     def get_availability(self):

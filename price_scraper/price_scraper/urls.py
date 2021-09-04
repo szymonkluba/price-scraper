@@ -13,15 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from apps.price_lookup.urls import router as prices_router
+from apps.products.urls import router as products_router
+from apps.stores.urls import router as stores_router
+from apps.users.urls import router as users_router
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include
+from django.urls import path
 from rest_framework.routers import DefaultRouter
-
-from apps.users.urls import router as users_router
-from apps.stores.urls import router as stores_router
-from apps.products.urls import router as products_router
-from apps.price_lookup.urls import router as prices_router
 
 router = DefaultRouter()
 router.registry.extend(users_router.registry)

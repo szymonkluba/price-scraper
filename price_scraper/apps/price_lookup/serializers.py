@@ -21,4 +21,4 @@ class StorePricesSerializer(serializers.ModelSerializer):
     product_link = serializers.SerializerMethodField()
 
     def get_product_link(self, obj):
-        return reverse_lazy("product-detail", kwargs={"slug": obj.product.slug})
+        return reverse_lazy('product-detail', kwargs={'slug': obj.product.slug})

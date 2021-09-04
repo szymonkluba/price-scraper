@@ -1,4 +1,6 @@
-from rest_framework import viewsets, mixins, status
+from rest_framework import mixins
+from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -16,7 +18,7 @@ class ListAddDeleteViewSet(mixins.ListModelMixin,
 class FavouritesViewSet(ListAddDeleteViewSet):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated, ]
-    lookup_field = "slug"
+    lookup_field = 'slug'
 
     def list(self, request, *args, **kwargs):
         user = request.user

@@ -1,5 +1,6 @@
 from ..price_lookup import price_lookup
-from ..price_lookup.models import ProductSearchDetails, Price
+from ..price_lookup.models import Price
+from ..price_lookup.models import ProductSearchDetails
 from ..products.models import Product
 
 
@@ -21,6 +22,8 @@ def update_product_prices(product: Product, product_links: ProductSearchDetails)
     available = prices_scraper.get_availability()
 
     if price is not None and available is not None:
-        Price.objects.create(price=price, available=available, store=store, product=product)
+        Price.objects.create(price=price, available=available,
+                             store=store, product=product)
         return
-    raise NoPriceUpdateException(f"Nie udało się zaktualizować ceny dla sklepu: {store.name}")
+    raise NoPriceUpdateException(
+        f'Nie udało się zaktualizować ceny dla sklepu: {store.name}')

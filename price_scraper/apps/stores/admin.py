@@ -5,5 +5,5 @@ from . import models
 
 @admin.register(models.Store)
 class StoreAdmin(admin.ModelAdmin):
-    fields = ["name", "slug", "url"]
-    readonly_fields = ["slug"]
+    fields = ['name', 'slug', 'url']
+    readonly_fields = ['slug']
