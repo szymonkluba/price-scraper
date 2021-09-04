@@ -36,10 +36,10 @@ class CategoryViewsTests(APITestCase):
         self.assertEqual(result['name'], self.category.name)
         self.assertEqual(result['slug'], self.category.slug)
 
-        category_url = reverse_lazy(
-            'category-detail', kwargs={'slug': self.category.slug})
+        products_url = reverse_lazy(
+            'category-products', kwargs={'slug': self.category.slug})
 
-        self.assertEqual(result['url'], category_url)
+        self.assertEqual(result['products'], products_url)
 
     def test_retrieve(self) -> None:
         request = self.factory.get(self.url)
