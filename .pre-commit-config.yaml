@@ -44,3 +44,4 @@ repos:
         always_run: true
         pass_filenames: false
         language: system
+        files: ^price_scraper/
