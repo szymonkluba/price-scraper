@@ -71,5 +71,5 @@ class StoresViewsTest(APITestCase):
 
         results = response.data['results'][0]
 
-        self.assertEqual(results['product'], self.product.name)
+        self.assertEqual(results['name'], self.product.name)
         self.assertEqual(results['price'], self.price.price)
