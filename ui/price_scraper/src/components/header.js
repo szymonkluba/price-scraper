@@ -1,7 +1,8 @@
 import React from "react";
 
-export default function Header() {
-    return (
+class Header extends React.Component {
+    render() {
+        return (
         <nav>
             <ul>
                 <li>Products</li>
@@ -13,4 +14,8 @@ export default function Header() {
             <button>Search</button>
         </nav>
     );
+    }
+
 }
+
+export default Header

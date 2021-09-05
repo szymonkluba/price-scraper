@@ -1,9 +1,14 @@
 import React from "react";
 
-export default function MainContent() {
-    return (
-        <div>
-            Content
-        </div>
-    );
+class MainContent extends React.Component {
+    render() {
+        return (
+            <div>
+                Content
+            </div>
+        );
+    }
+
 }
+
+export default MainContent

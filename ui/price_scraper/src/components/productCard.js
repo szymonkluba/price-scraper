@@ -1,9 +1,13 @@
 import React from "react";
 
-export default function ProductCard() {
-    return (
-        <div>
-            Product card
-        </div>
-    )
+class ProductCard extends React.Component {
+    render() {
+        return (
+            <div>
+                Product card
+            </div>
+        );
+    }
 }
+
+export default ProductCard
