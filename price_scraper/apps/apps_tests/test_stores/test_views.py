@@ -46,7 +46,7 @@ class StoresViewsTest(APITestCase):
         store_products = reverse_lazy(
             'store-products', kwargs={'slug': self.store.slug})
 
-        self.assertEqual(results['store_prices'], store_products)
+        self.assertEqual(results['products'], store_products)
 
     def test_retrieve(self) -> None:
         request = self.factory.get(path=self.url)
@@ -60,7 +60,7 @@ class StoresViewsTest(APITestCase):
         store_prices = reverse_lazy(
             'store-products', kwargs={'slug': self.store.slug})
 
-        self.assertEqual(response.data['store_prices'], store_prices)
+        self.assertEqual(response.data['products'], store_prices)
 
     def test_list_store_products(self) -> None:
         request = self.factory.get(path=self.url)

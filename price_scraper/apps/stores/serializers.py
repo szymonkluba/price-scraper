@@ -7,9 +7,9 @@ from .models import Store
 class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = ['name', 'slug', 'url', 'store_prices']
+        fields = ['name', 'slug', 'url', 'products']
 
-    store_prices = serializers.SerializerMethodField()
+    products = serializers.SerializerMethodField()
 
-    def get_store_prices(self, obj):
+    def get_products(self, obj):
         return reverse_lazy('store-products', kwargs={'slug': obj.slug})
