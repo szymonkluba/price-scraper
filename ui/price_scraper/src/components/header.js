@@ -1,29 +1,37 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Picker from "./picker";
 
 class Header extends React.Component {
-    addTest() {
-        const element = <div>Test</div>
-        ReactDOM.render(element, document.getElementById('content'))
+    constructor(props) {
+        super(props);
+        this.state = {
+            pickerVisible: false,
+            url: null,
+        }
     }
 
-    addTest2() {
-        const element = <div>Test 2</div>
-        ReactDOM.render(element, document.getElementById('content'))
+    displayPicker(url) {
+        this.setState({
+            url: url,
+            pickerVisible: !this.state.pickerVisible,
+        })
     }
 
     render() {
+        const picker = this.state.pickerVisible && <Picker url={this.state.url} />;
         return (
         <nav>
             <ul>
-                <li><button onClick={this.addTest}>Products</button></li>
-                <li><button onClick={this.addTest2}>Categories</button></li>
-                <li>Stores</li>
+                <li><button>Products</button></li>
+                <li><button onClick={() => this.displayPicker(window.location.origin.replace('3000', '8000') + '/category/')}>Categories</button></li>
+                <li><button onClick={() => this.displayPicker(window.location.origin.replace('3000', '8000') + '/stores/')}>Stores</button></li>
                 <li>Login</li>
+                <input type="search"/>
+                <button>Search</button>
             </ul>
-            <input type="search"/>
-            <button>Search</button>
+            {picker}
         </nav>
+
     );
     }
 
