@@ -7,3 +7,5 @@ class ThumbnailPlaceholder extends React.Component {
         )
     }
 }
+
+export default ThumbnailPlaceholder

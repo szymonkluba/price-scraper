@@ -1,11 +1,14 @@
 import React from "react";
+import ProductList from "./productList";
 
 class MainContent extends React.Component {
+    componentDidMount() {
+        console.log("test create")
+    }
+
     render() {
         return (
-            <div>
-                Content
-            </div>
+            <ProductList url={'http://localhost:8000/products/'} />
         );
     }
 
