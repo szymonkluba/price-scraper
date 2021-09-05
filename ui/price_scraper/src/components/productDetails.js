@@ -8,6 +8,12 @@ class ProductDetails extends React.Component {
         if (this.props.item.current_prices) {
                 prices_list = this.props.name.current_prices.map((price) => <PriceTag price=price/>)
             }
+        let thumbnail;
+        if (this.props.item.image_url) {
+            thumbnail = <Thumbnail image_url=this.props.item.image_url/>
+        } else {
+            thumbnail = <ThumbnailPlaceholder />
+        }
 
         return (
             <div>
