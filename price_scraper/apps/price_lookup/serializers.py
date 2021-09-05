@@ -6,10 +6,11 @@ from .models import Price
 
 class PriceSerializer(serializers.ModelSerializer):
     store = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    slug = serializers.SlugRelatedField(read_only=True, slug_field='slug')
 
     class Meta:
         model = Price
-        fields = ['price', 'store', 'available', 'timestamp']
+        fields = ['price', 'store', 'slug', 'available', 'timestamp']
 
 
 class StorePricesSerializer(serializers.ModelSerializer):
