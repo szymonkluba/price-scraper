@@ -9,7 +9,7 @@ from ..products.serializers import ProductSerializer
 
 
 class ListAddDeleteViewSet(mixins.ListModelMixin,
-                           mixins.UpdateModelMixin,
+                           mixins.CreateModelMixin,
                            mixins.DestroyModelMixin,
                            viewsets.GenericViewSet):
     pass
@@ -39,7 +39,8 @@ class FavouritesViewSet(ListAddDeleteViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, slug=None, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
+        slug = request.POST.get('slug')
         if slug is not None:
             product = Product.objects.get(slug=slug)
             request.user.favourites.add(product)

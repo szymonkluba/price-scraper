@@ -22,7 +22,7 @@ class FavouritesViewsTests(APITestCase):
 
         self.favourites = FavouritesViewSet.as_view({
             'get': 'list',
-            'put': 'update',
+            'post': 'create',
             'delete': 'destroy',
         })
 
@@ -35,9 +35,9 @@ class FavouritesViewsTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_add_to_favourites(self):
-        request = self.factory.put(self.url)
+        request = self.factory.post(self.url, data={'slug': self.product.slug})
         force_authenticate(request, user=self.user)
-        response = self.favourites(request, slug=self.product.slug)
+        response = self.favourites(request)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn(self.product, self.user.favourites.all())
