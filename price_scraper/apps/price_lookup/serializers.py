@@ -6,11 +6,14 @@ from .models import Price
 
 class PriceSerializer(serializers.ModelSerializer):
     store = serializers.SlugRelatedField(read_only=True, slug_field='name')
-    slug = serializers.SlugRelatedField(read_only=True, slug_field='slug')
+    slug = serializers.SerializerMethodField()
 
     class Meta:
         model = Price
         fields = ['price', 'store', 'slug', 'available', 'timestamp']
+
+    def get_slug(self, obj):
+        return obj.store.slug
 
 
 class StorePricesSerializer(serializers.ModelSerializer):
