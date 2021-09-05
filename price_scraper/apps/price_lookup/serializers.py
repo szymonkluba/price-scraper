@@ -19,10 +19,11 @@ class PriceSerializer(serializers.ModelSerializer):
 class StorePricesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
-        fields = ['name', 'slug', 'url', 'category', 'price',
+        fields = ['name', 'slug', 'url', 'category', 'price', 'store',
                   'timestamp', 'available', 'image_url', 'in_favs']
 
     name = serializers.SerializerMethodField()
+    store = serializers.SlugRelatedField(read_only=True, slug_field='name')
     slug = serializers.SerializerMethodField()
     image_url = serializers.SerializerMethodField()
     category = serializers.SerializerMethodField()
