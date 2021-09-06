@@ -2,6 +2,7 @@ import React from "react";
 import PriceTag from "./priceTag";
 import Thumbnail from "./thumbnail";
 import ThumbnailPlaceholder from "./thumbnailPlaceholder";
+import {Link} from "react-router-dom";
 
 class ProductDetails extends React.Component {
     render() {
@@ -26,7 +27,7 @@ class ProductDetails extends React.Component {
         return (
             <div className={'product-details'}>
                 {thumbnail}
-                <a href={this.props.details.url}><h1>{this.props.details.name}</h1></a>
+                <Link to={this.props.details.url}><h1>{this.props.details.name}</h1></Link>
                 {prices_list}
                 {price}
                 <p>{this.props.details.category}</p>
