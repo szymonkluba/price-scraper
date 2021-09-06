@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "./productCard";
+import {Link} from "react-router-dom";
 
 class Picker extends React.Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class Picker extends React.Component {
             previous: null,
             next: null,
             count: null
-        };
+        }
     }
 
     componentDidMount() {
@@ -21,6 +21,7 @@ class Picker extends React.Component {
                 (result) => {
                     console.log(result);
                     this.setState({
+                        visible: false,
                         isLoaded: true,
                         items: result.results,
                         previous: result.previous,
@@ -35,11 +36,12 @@ class Picker extends React.Component {
                     });
                 }
             )
+
     }
 
     render() {
+
         const {error, isLoaded, items} = this.state;
-        console.log(items);
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -49,14 +51,17 @@ class Picker extends React.Component {
                 <div className={'picker'}>
                     <ul className={'picker-items'}>
                         {items.map((link) => {
-                            return (<li key={link.slug} className={'picker-item'}>
-                                <a href={window.location.origin.replace('3000', '8000') + link.products} >{link.name}</a>
-                            </li>)
+                            return (
+                            <li key={link.slug}>
+                                <Link to={link.products}>{link.name}</Link>
+                            </li>
+                            )
                         })}
                     </ul>
                 </div>
             )
         }
+
     }
 }
 

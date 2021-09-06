@@ -18,8 +18,8 @@ class ProductDetails extends React.Component {
             }} />
 
         let thumbnail;
-        if (this.props.product.image_url) {
-            thumbnail = <Thumbnail image_url={this.props.product.image_url}/>
+        if (this.props.details.image_url) {
+            thumbnail = <Thumbnail image_url={this.props.details.image_url}/>
         } else {
             thumbnail = <ThumbnailPlaceholder />
         }

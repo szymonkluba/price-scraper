@@ -1,5 +1,6 @@
 import React from "react";
 import ProductCard from "./productCard";
+import {withRouter} from "react-router-dom";
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -15,7 +16,15 @@ class ProductList extends React.Component {
     }
 
     componentDidMount() {
-        fetch(this.props.url)
+        const location = this.props.location.pathname === '/' ? '/products/' : this.props.location.pathname;
+        console.log(location)
+        const path = window.location.origin.replace('3000', '8000') + location;
+        console.log(path)
+        this.fetchProducts(path);
+    }
+
+    fetchProducts(path) {
+        fetch(path)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -43,9 +52,10 @@ class ProductList extends React.Component {
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
-            return items.map((product) => <ProductCard key={product.slug} product={product}/>);
+            return items.map((product) => <ProductCard key={product.slug}
+                                                       product={product}/>);
         }
     }
 }
 
-export default ProductList
+export default withRouter(ProductList)

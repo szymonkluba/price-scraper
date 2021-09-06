@@ -1,7 +1,5 @@
 import React from "react";
-import Thumbnail from "./thumbnail";
 import ProductDetails from "./productDetails";
-import ThumbnailPlaceholder from "./thumbnailPlaceholder";
 
 class ProductCard extends React.Component {
     render() {
@@ -9,7 +7,10 @@ class ProductCard extends React.Component {
             current_prices: this.props.product.current_prices,
             name: this.props.product.name,
             url: this.props.product.url,
-            category: this.props.product.category
+            category: this.props.product.category,
+            price: this.props.product.price,
+            timestamp: this.props.product.timestamp,
+            available: this.props.product.available,
         }
 
         return (
