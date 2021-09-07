@@ -1,6 +1,8 @@
 import React from "react";
 import ProductCard from "./productCard";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -16,8 +18,11 @@ class ProductList extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         const location = this.props.location.pathname === '/' ? '/products/' : this.props.location.pathname;
-        const path = window.location.origin.replace('3000', '8000') + location;
+        const limit = this.props.limit ? `?limit=${this.props.limit}` : ''
+        const offset = this.props.offset ? `&offset=${this.props.offset}` : ''
+        const path = window.location.origin.replace('3000', '8000') + location + limit + offset;
         this.fetchProducts(path);
     }
 
@@ -50,8 +55,27 @@ class ProductList extends React.Component {
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
-            return items.map((product) => <ProductCard key={product.slug}
-                                                       product={product}/>);
+            console.log(this.state.next, this.state.previous)
+            const next = this.state.next && (
+                <Link to={this.state.next.replace(/http.?:\/\/[a-z]+:\d*/gm, '')}>
+                    <FontAwesomeIcon icon={faChevronRight}/>
+                </Link>
+            )
+            const previous = this.state.previous && (
+                <Link to={this.state.previous.replace(/http.?:\/\/[a-z]+:\d*/gm, '')}>
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </Link>
+            )
+            return (
+                <div>
+                    {previous}
+                    {next}
+                    {items.map((product) => <ProductCard key={product.slug}
+                                                         product={product}/>)}
+                </div>
+
+
+            )
         }
     }
 }

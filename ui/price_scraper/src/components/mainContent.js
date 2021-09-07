@@ -13,22 +13,27 @@ function MainContent() {
     return (
         <Switch>
             <Route key='products'
-                   path='/'>
-                <ProductList key='products' limit={query.get('limit')} offset={query.get('offset')} />
-            </Route>
+                   exact
+                   path={['/', '/products/:pagination?']}
+                   render={props => <ProductList key={props.location.key}
+                                                 limit={query.get('limit')}
+                                                 offset={query.get('offset')}/>} />
             <Route key='store_products'
-                   path='/stores/:slug/products/'>
-                <ProductList key='store_products' limit={query.get('limit')} offset={query.get('offset')} />
-            </Route>
+                   exact
+                   path='/stores/:slug/products/:pagination?'
+                   render={props => <ProductList key={props.location.key}
+                                                 limit={query.get('limit')}
+                                                 offset={query.get('offset')}/>} />
             <Route key='category_products'
-                   path='/category/:slug/products/'>
-                <ProductList key='category_products' limit={query.get('limit')} offset={query.get('offset')} />
-            </Route>
+                   exact
+                   path='/category/:slug/products/:pagination?'
+                   render={props => <ProductList key={props.location.key}
+                                                 limit={query.get('limit')}
+                                                 offset={query.get('offset')}/>} />
             <Route key='product_details'
                    exact
-                   path='/products/:slug'>
-                <Product key='product_details' />
-            </Route>
+                   path='/products/:slug'
+                   render={props => <Product key={props.location.key}/>} />
         </Switch>
     );
 }
