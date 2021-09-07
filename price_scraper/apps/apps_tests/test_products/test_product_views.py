@@ -14,7 +14,7 @@ from unittest.mock import patch
 class ProductViewsTest(APITestCase):
     EMPTY_PAGE = '<html></html>'
     PAGE_ONE_STORE_DETAILS = '<html><head></head><body><p class="price">100</p></body></html>'
-    PAGE_WITH_IMAGE = '<html><head></head><body><img class="image" src="test_url"><p class="price">100</p></body></html>'
+    PAGE_WITH_IMAGE = '<html><head></head><body><img class="image" data-src="http://test_url/"><p class="price">100</p></body></html>'
 
     def setUp(self) -> None:
         self.factory = APIRequestFactory()
@@ -185,6 +185,7 @@ class ProductViewsTest(APITestCase):
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(len(self.product.product_prices.all()), 2)
+            self.assertEqual(response.data, {'errors': []})
 
     def test_updates_product_image(self) -> None:
         store1 = Store.objects.create(name='TestStore1', url='')
@@ -195,7 +196,8 @@ class ProductViewsTest(APITestCase):
             available_class='.av'
         )
 
-        self.product.links.create(search_url='https://test.html', store=store1)
+        self.product.links.create(
+            search_url='https://test.html/', store=store1)
 
         with patch('apps.price_lookup.price_lookup.LookupWebsite') as MockClass:
             instance = MockClass()
@@ -209,7 +211,7 @@ class ProductViewsTest(APITestCase):
             updated_product = Product.objects.get(slug=self.product.slug)
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
-            self.assertEqual(updated_product.image_url, 'test_url')
+            self.assertEqual(updated_product.image_url, 'http://test_url/')
 
     def test_does_not_change_url_if_present(self):
         store1 = Store.objects.create(name='TestStore1', url='')
@@ -220,7 +222,8 @@ class ProductViewsTest(APITestCase):
             available_class='.av'
         )
 
-        self.product.links.create(search_url='https://test.html', store=store1)
+        self.product.links.create(
+            search_url='https://test.html/', store=store1)
 
         self.product.image_url = 'different_url'
         self.product.save()

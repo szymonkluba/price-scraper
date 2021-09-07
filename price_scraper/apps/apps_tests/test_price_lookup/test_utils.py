@@ -52,7 +52,7 @@ class PriceLookupSelectorsTests(TestCase):
     PAGE_PRICE_WITH_CLASS = '<html><head></head><body><p class="price">100</p></body></html>'
     PAGE_PRICE_WITH_ID = '<html><head></head><body><p id="price">100</p></body></html>'
     PAGE_PRICE_IN_CONTENT = '<html><head></head><body><p id="price" content="100.00"></p></body></html>'
-    PAGE_WITH_IMAGE = '<html><head></head><body><img class="image" src="test_url"></p></body></html>'
+    PAGE_WITH_IMAGE = '<html><head></head><body><img class="image" data-src="http://test_url/"></p></body></html>'
 
     def setUp(self) -> None:
         self.website = MagicMock()
@@ -101,7 +101,7 @@ class PriceLookupSelectorsTests(TestCase):
 
         price_lookup = PriceLookup(self.website, self.search_params)
 
-        self.assertEqual(price_lookup.get_image_url(), 'test_url')
+        self.assertEqual(price_lookup.get_image_url(), 'http://test_url/')
 
 
 class PriceLookupValuesTests(TestCase):

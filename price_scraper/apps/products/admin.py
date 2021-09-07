@@ -5,7 +5,7 @@ from . import models
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    fields = ['name', 'slug', 'category']
+    fields = ['name', 'slug', 'category', 'image_url']
     readonly_fields = ['slug']
 
 

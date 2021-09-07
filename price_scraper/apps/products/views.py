@@ -64,4 +64,4 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             if len(errors) == len(product_links):
                 return Response(data={'errors': errors}, status=status.HTTP_400_BAD_REQUEST)
             return Response(data={'errors': errors}, status=status.HTTP_202_ACCEPTED)
-        return Response()
+        return Response(data={'errors': errors})
