@@ -4,7 +4,6 @@ import {withRouter} from "react-router-dom";
 
 class ProductList extends React.Component {
     constructor(props) {
-
         super(props);
         this.state = {
             error: null,
@@ -18,9 +17,7 @@ class ProductList extends React.Component {
 
     componentDidMount() {
         const location = this.props.location.pathname === '/' ? '/products/' : this.props.location.pathname;
-        console.log(location)
         const path = window.location.origin.replace('3000', '8000') + location;
-        console.log(path)
         this.fetchProducts(path);
     }
 

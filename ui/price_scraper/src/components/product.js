@@ -15,9 +15,7 @@ class Product extends React.Component {
 
     componentDidMount() {
         const location = this.props.location.pathname === '/' ? '/products/' : this.props.location.pathname;
-        console.log(location)
         const path = window.location.origin.replace('3000', '8000') + location;
-        console.log(path)
         this.fetchProduct(path)
     }
 

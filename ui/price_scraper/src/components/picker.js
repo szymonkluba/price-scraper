@@ -19,7 +19,6 @@ class Picker extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result);
                     this.setState({
                         visible: false,
                         isLoaded: true,

@@ -11,6 +11,7 @@ class ProductCard extends React.Component {
             price: this.props.product.price,
             timestamp: this.props.product.timestamp,
             available: this.props.product.available,
+            image_url: this.props.product.image_url,
         }
 
         return (

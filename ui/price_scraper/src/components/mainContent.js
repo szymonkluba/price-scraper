@@ -4,10 +4,6 @@ import {Route, Switch} from 'react-router-dom';
 import Product from "./product";
 
 class MainContent extends React.Component {
-    componentDidMount() {
-        console.log("test create")
-    }
-
     render() {
         return (
             <Switch>
