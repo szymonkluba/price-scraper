@@ -4,6 +4,7 @@ import {withRouter} from "react-router-dom";
 
 class ProductList extends React.Component {
     constructor(props) {
+
         super(props);
         this.state = {
             error: null,

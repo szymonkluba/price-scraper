@@ -1,5 +1,4 @@
 import React from "react";
-import ProductCard from "./productCard";
 import PriceTag from "./priceTag";
 
 class PricesHistory extends React.Component {
