@@ -1,6 +1,8 @@
 import React from "react";
 import Picker from "./picker";
 import {Link} from "react-router-dom";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class Header extends React.Component {
     constructor(props) {
@@ -14,7 +16,17 @@ class Header extends React.Component {
 
     displayPicker(url, key) {
         if (key === this.state.picker_key) {
-            this.setState({pickerVisible: !this.state.pickerVisible});
+            const picker = document.getElementById('picker');
+            if (picker) {
+                console.log(picker);
+                if (picker.classList.contains('show')) {
+                    picker.classList.remove('show')
+                }
+                picker.classList.add('hide')
+            }
+            setTimeout(() => {
+                this.setState({pickerVisible: !this.state.pickerVisible});
+            }, 250)
         } else {
             this.setState({
                 pickerVisible: !this.state.pickerVisible ? true : this.state.pickerVisible,
@@ -30,18 +42,31 @@ class Header extends React.Component {
                                                            url={this.state.url}/>;
         return (
             <nav>
-                <ul>
-                    <li><Link to='/'>Products</Link></li>
+                <ul className={'menu'}>
+                    <li><Link className={"menu-item"}
+                              to='/'>Products</Link></li>
                     <li>
-                        <button onClick={() => this.displayPicker(window.location.origin.replace('3000', '8000') + '/category/', 'category')}>Categories</button>
+                        <button className={"menu-item"}
+                                onClick={() => this.displayPicker(window.location.origin.replace('3000', '8000') + '/category/', 'category')}>Categories
+                        </button>
                     </li>
                     <li>
-                        <button onClick={() => this.displayPicker(window.location.origin.replace('3000', '8000') + '/stores/', 'stores')}>Stores</button>
+                        <button className={"menu-item"}
+                                onClick={() => this.displayPicker(window.location.origin.replace('3000', '8000') + '/stores/', 'stores')}>Stores
+                        </button>
                     </li>
-                    <li>Login</li>
-                    <input type="search"/>
-                    <button>Search</button>
+                    <li><a className={"menu-item"}
+                           href={"login"}>Login</a></li>
+
                 </ul>
+                <div className={'search'}>
+                    <div className={'search-border'}>
+                        <input className={'search-input'}
+                               type="search"
+                               placeholder={"Search"}/>
+                        <button className={'search-button'}><FontAwesomeIcon icon={faSearch}/></button>
+                    </div>
+                </div>
                 {picker}
             </nav>
 

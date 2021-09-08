@@ -42,17 +42,17 @@ class Picker extends React.Component {
 
         const {error, isLoaded, items} = this.state;
         if (error) {
-            return <div>Error: {error.message}</div>;
+            return <div className={'picker show'}>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <div className={'picker show'}>Loading...</div>;
         } else {
             return (
-                <div className={'picker'}>
+                <div id='picker' className={'picker show'}>
                     <ul className={'picker-items'}>
                         {items.map((link) => {
                             return (
                             <li key={link.slug}>
-                                <Link to={link.products}>{link.name}</Link>
+                                <Link className={"menu-item"} to={link.products}>{link.name}</Link>
                             </li>
                             )
                         })}
