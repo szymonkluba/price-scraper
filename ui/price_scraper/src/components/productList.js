@@ -57,21 +57,29 @@ class ProductList extends React.Component {
         } else {
             console.log(this.state.next, this.state.previous)
             const next = this.state.next && (
-                <Link to={this.state.next.replace(/http.?:\/\/[a-z]+:\d*/gm, '')}>
-                    <FontAwesomeIcon icon={faChevronRight}/>
-                </Link>
+
+                <div className={'next'}>
+                    <Link to={this.state.next.replace(/http.?:\/\/[a-z]+:\d*/gm, '')} className={'navigation'}>
+                        <FontAwesomeIcon icon={faChevronRight} size={"3x"} color={'#243ce6'}/>
+                    </Link>
+                </div>
             )
             const previous = this.state.previous && (
-                <Link to={this.state.previous.replace(/http.?:\/\/[a-z]+:\d*/gm, '')}>
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                </Link>
+                <div className={'previous'}>
+                    <Link to={this.state.previous.replace(/http.?:\/\/[a-z]+:\d*/gm, '')} className={'navigation'}>
+                        <FontAwesomeIcon icon={faChevronLeft} size={"3x"} color={'#243ce6'}/>
+                    </Link>
+                </div>
+
             )
             return (
-                <div>
+                <div className={'main-content'}>
                     {previous}
+                    <div className={'product-list'}>
+                        {items.map((product) => <ProductCard key={product.slug}
+                                                             product={product}/>)}
+                    </div>
                     {next}
-                    {items.map((product) => <ProductCard key={product.slug}
-                                                         product={product}/>)}
                 </div>
 
 

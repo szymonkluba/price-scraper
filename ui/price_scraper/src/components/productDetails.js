@@ -1,7 +1,5 @@
 import React from "react";
 import PriceTag from "./priceTag";
-import Thumbnail from "./thumbnail";
-import ThumbnailPlaceholder from "./thumbnailPlaceholder";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSyncAlt} from "@fortawesome/free-solid-svg-icons";
@@ -55,7 +53,7 @@ class ProductDetails extends React.Component {
     }
 
     render() {
-        const {current_prices, name, url, category, price, timestamp, available, store, image_url} = this.state
+        const {current_prices, name, url, category, price, timestamp, available, store} = this.state
         let prices_list;
         if (current_prices) {
                 prices_list = current_prices.map((price) => <PriceTag key={price.slug} price={price}/>)
@@ -67,20 +65,12 @@ class ProductDetails extends React.Component {
                 available: available,
                 store: store,
             }} />
-
-        let thumbnail;
-        if (image_url) {
-            thumbnail = <Thumbnail image_url={image_url}/>
-        } else {
-            thumbnail = <ThumbnailPlaceholder />
-        }
         return (
             <div className={'product-details'}>
-                {thumbnail}
                 <Link to={url}><h1>{name}</h1></Link>
                 {prices_list}
                 {price_tag}
-                <p>{category}</p>
+                <p className={'category'}>{category}</p>
                 <button className={"refresh"} onClick={this.updatePrices}><FontAwesomeIcon icon={faSyncAlt} /></button>
             </div>
 
