@@ -143,6 +143,7 @@ class PriceLookupValuesTests(TestCase):
 
 class PriceLookupItemAvailabilityTests(TestCase):
     PAGE_ITEM_OUT_OF_STOCK = '<html><head></head><body><p class="av">Ni ma:(</p></body></html>'
+    PAGE_ITEM_IS_BUYABLE_PROP = '<html><head></head><body><p class="av" is-buyable="0">Ni ma:(</p></body></html>'
     PAGE_PRICE_WITH_CLASS = '<html><head></head><body><p class="price">100</p></body></html>'
 
     def setUp(self) -> None:
@@ -165,3 +166,11 @@ class PriceLookupItemAvailabilityTests(TestCase):
         price_lookup = PriceLookup(self.website, self.search_params)
 
         self.assertTrue(price_lookup.get_availability())
+
+    def test_item_with_is_buayble_prop(self):
+        self.website.get_website_as_text = MagicMock(
+            return_value=self.PAGE_ITEM_IS_BUYABLE_PROP)
+
+        price_lookup = PriceLookup(self.website, self.search_params)
+
+        self.assertFalse(price_lookup.get_availability())
