@@ -1,8 +1,7 @@
 import React from "react";
 import Picker from "./picker";
 import {Link} from "react-router-dom";
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import SearchForm from "./searchForm";
 
 class Header extends React.Component {
     constructor(props) {
@@ -18,7 +17,6 @@ class Header extends React.Component {
         if (key === this.state.picker_key) {
             const picker = document.getElementById('picker');
             if (picker) {
-                console.log(picker);
                 if (picker.classList.contains('show')) {
                     picker.classList.remove('show')
                 }
@@ -34,7 +32,6 @@ class Header extends React.Component {
                 picker_key: key,
             })
         }
-        ;
     }
 
     render() {
@@ -57,16 +54,8 @@ class Header extends React.Component {
                     </li>
                     <li><a className={"menu-item"}
                            href={"login"}>Login</a></li>
-
                 </ul>
-                <div className={'search'}>
-                    <div className={'search-border'}>
-                        <input className={'search-input'}
-                               type="search"
-                               placeholder={"Search"}/>
-                        <button className={'search-button'}><FontAwesomeIcon icon={faSearch}/></button>
-                    </div>
-                </div>
+                <SearchForm />
                 {picker}
             </nav>
 

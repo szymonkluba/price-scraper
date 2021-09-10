@@ -33,12 +33,12 @@ nav {
     justify-content: center;
     height: 10vh;
     padding: 10px;
-    z-index: 1;
 }
 
 .menu {
     background-color: var(--tiles-background);
     box-shadow: 5px 5px 18px var(--tiles-shadow);
+    position: relative;
     height: 80px;
     width: 800px;
     margin: 0 10px 0 0;
@@ -129,8 +129,8 @@ nav {
     color: var(--secondary-color);
     position: absolute;
     right: 10px;
-    top: 2px;
-    bottom: 2px;
+    top: 30%;
+    bottom: 30%;
 }
 
 a {
@@ -159,16 +159,17 @@ h1 {
 
 .picker {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     background-color: var(--tiles-background);
+    box-shadow: 5px 5px 18px var(--tiles-shadow);
     position: absolute;
-    top: 90px;
-    width: 700px;
+    left: calc(100vw / 2 - 645px);
+    top: 100px;
+    width: 800px;
     height: auto;
     box-sizing: content-box;
     border-radius: 15px;
-    z-index: 10;
+    z-index: 2;
 }
 
 .main-content {
@@ -176,6 +177,7 @@ h1 {
     display: flex;
     justify-content: center;
     position: relative;
+    z-index: 1;
 }
 
 .previous {
@@ -232,7 +234,8 @@ a.navigation {
 
 .picker-items {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    flex-wrap: wrap;
     width: 100%;
     padding: 10px;
 }

@@ -19,10 +19,12 @@ class ProductList extends React.Component {
 
     componentDidMount() {
         console.log(this.props)
-        const location = this.props.location.pathname === '/' ? '/products/' : this.props.location.pathname;
+        const location = this.props.location.pathname === '/' || '/search/' ? '/products/' : this.props.location.pathname;
+        console.log(location)
+        const query = this.props.query ? `?q=${this.props.query}` : ''
         const limit = this.props.limit ? `?limit=${this.props.limit}` : ''
         const offset = this.props.offset ? `&offset=${this.props.offset}` : ''
-        const path = window.location.origin.replace('3000', '8000') + location + limit + offset;
+        const path = window.location.origin.replace('3000', '8000') + location + query + limit + offset;
         this.fetchProducts(path);
     }
 

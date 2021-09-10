@@ -34,6 +34,11 @@ function MainContent() {
                    exact
                    path='/products/:slug/'
                    render={props => <Product {...props} key={props.location.key}/>} />
+            <Route key='search'
+                   exact
+                   path='/search/:query?'
+                   render={props => <ProductList {...props} key={props.location.key}
+                                                            query={query.get('q')}/>} />
         </Switch>
     );
 }
