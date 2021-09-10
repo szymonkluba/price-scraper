@@ -3,6 +3,7 @@ import ProductCard from "./productCard";
 import {Link, withRouter} from "react-router-dom";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import SplashScreen from "./splashScreen";
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -18,9 +19,7 @@ class ProductList extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
-        const location = this.props.location.pathname === '/' || '/search/' ? '/products/' : this.props.location.pathname;
-        console.log(location)
+        const location = this.props.location.pathname === '/' || this.props.location.pathname === '/search/' ? '/products/' : this.props.location.pathname;
         const query = this.props.query ? `?q=${this.props.query}` : ''
         const limit = this.props.limit ? `?limit=${this.props.limit}` : ''
         const offset = this.props.offset ? `&offset=${this.props.offset}` : ''
@@ -55,21 +54,31 @@ class ProductList extends React.Component {
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return (
+                <div className={'main-content'}
+                     style={{width: '50vw', height: '50vh'}}>
+                    <SplashScreen/>
+                </div>
+            );
         } else {
-            console.log(this.state.next, this.state.previous)
             const next = this.state.next && (
 
                 <div className={'next'}>
-                    <Link to={this.state.next.replace(/http.?:\/\/[a-z]+:\d*/gm, '')} className={'navigation'}>
-                        <FontAwesomeIcon icon={faChevronRight} size={"3x"} color={'#243ce6'}/>
+                    <Link to={this.state.next.replace(/http.?:\/\/[a-z]+:\d*/gm, '')}
+                          className={'navigation'}>
+                        <FontAwesomeIcon icon={faChevronRight}
+                                         size={"3x"}
+                                         color={'#243ce6'}/>
                     </Link>
                 </div>
             )
             const previous = this.state.previous && (
                 <div className={'previous'}>
-                    <Link to={this.state.previous.replace(/http.?:\/\/[a-z]+:\d*/gm, '')} className={'navigation'}>
-                        <FontAwesomeIcon icon={faChevronLeft} size={"3x"} color={'#243ce6'}/>
+                    <Link to={this.state.previous.replace(/http.?:\/\/[a-z]+:\d*/gm, '')}
+                          className={'navigation'}>
+                        <FontAwesomeIcon icon={faChevronLeft}
+                                         size={"3x"}
+                                         color={'#243ce6'}/>
                     </Link>
                 </div>
 

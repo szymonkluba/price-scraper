@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import SplashScreen from "./splashScreen";
 
 class Picker extends React.Component {
     constructor(props) {
@@ -44,10 +45,14 @@ class Picker extends React.Component {
         if (error) {
             return <div className={'picker show'}>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div className={'picker show'}>Loading...</div>;
+            return (
+                <div className={"picker show"} style={{height: '40px'}}>
+                    <SplashScreen className={"picker show"}/>
+                </div>
+            );
         } else {
             return (
-                <div id='picker' className={'picker show'}>
+                <div id='picker' className={'picker'}>
                     <ul className={'picker-items'}>
                         {items.map((link) => {
                             return (

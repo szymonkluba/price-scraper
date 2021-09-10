@@ -12,12 +12,6 @@ function MainContent() {
 
     return (
         <Switch>
-            <Route key='products'
-                   exact
-                   path={['/', '/products/?limit=(\\d+)&offset=(\\d+)', '/products/']}
-                   render={props => <ProductList key={props.location.key}
-                                                 limit={query.get('limit')}
-                                                 offset={query.get('offset')}/>} />
             <Route key='store_products'
                    exact
                    path='/stores/:slug/products/:pagination?'
@@ -27,6 +21,12 @@ function MainContent() {
             <Route key='category_products'
                    exact
                    path='/category/:slug/products/:pagination?'
+                   render={props => <ProductList key={props.location.key}
+                                                 limit={query.get('limit')}
+                                                 offset={query.get('offset')}/>} />
+            <Route key='products'
+                   exact
+                   path={['/', '/products/?limit=(\\d+)&offset=(\\d+)', '/products/']}
                    render={props => <ProductList key={props.location.key}
                                                  limit={query.get('limit')}
                                                  offset={query.get('offset')}/>} />

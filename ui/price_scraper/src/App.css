@@ -66,10 +66,19 @@ h1 {
     width: 85%;
 }
 
+.splash-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
 .main-content {
     overflow: hidden;
     display: flex;
     justify-content: center;
+    justify-items: center;
     position: relative;
     z-index: 1;
 }
@@ -194,6 +203,11 @@ img {
 .rotate {
     -webkit-animation: rotate-center 1s ease-in-out infinite both;
     animation: rotate-center 1s ease-in-out infinite both;
+}
+
+.loading {
+	-webkit-animation: rotate-center 1s linear infinite both;
+	        animation: rotate-center 1s linear infinite both;
 }
 
 ::-webkit-scrollbar {

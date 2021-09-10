@@ -21,7 +21,6 @@ class ProductDetails extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
                     this.setState({
                         ...result
                     });
@@ -41,7 +40,6 @@ class ProductDetails extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
                     this.setState({
                         ...result
                     });
