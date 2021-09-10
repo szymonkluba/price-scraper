@@ -48,7 +48,7 @@ class Product extends React.Component {
         } else {
             const url = window.location.origin.replace('3000', '8000') + '/prices/?product=' + product.slug;
             return (
-                <div>
+                <div className={'product'}>
                     <ProductCard key={product.slug} product={product} />
                     <PricesHistory key={product.slug + "-prices"} url={url} />
                 </div>

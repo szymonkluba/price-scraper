@@ -14,6 +14,21 @@ LIST
 }
 
 /*
+DETAIL
+*/
+
+.product {
+    display: flex;
+    justify-content: center;
+}
+
+.product > .product-card {
+    margin: 10px 30px 10px;
+}
+
+
+
+/*
 CARD
 */
 
@@ -54,7 +69,7 @@ CARD
     margin: 10px auto 10px;
 }
 
-.product-card:hover {
+.product-list > .product-card:hover {
     animation: size-up 0.1s;
     transform: scale(1.1);
     box-shadow: 5px 10px 18px var(--tiles-shadow);
@@ -149,4 +164,18 @@ PRICE TAG
 
 .available > svg.fa-times-circle {
     color: red;
+}
+
+/*
+PRICES HISTORY
+*/
+
+.prices-history {
+    width: 300px;
+    max-height: 89vh;
+    margin: 10px 30px 10px;
+}
+
+.prices-history > .price-tag {
+    background-color: var(--tiles-background);
 }

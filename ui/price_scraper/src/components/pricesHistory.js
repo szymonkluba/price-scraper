@@ -48,7 +48,7 @@ class PricesHistory extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>
+                <div className={'prices-history'}>
                     {items.map((price) => <PriceTag key={price.slug + price.timestamp}
                                                     price={price}/>)}
                 </div>
