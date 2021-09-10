@@ -15,6 +15,8 @@ class ProductDetails extends React.Component {
 
     updatePrices() {
         const url = window.location.origin.replace('3000', '8000') + this.state.url + 'update_prices/'
+        const refreshButton = document.getElementById('refresh-' + this.state.slug);
+        refreshButton.classList.add('rotate')
         fetch(url)
             .then(res => res.json())
             .then(
@@ -50,16 +52,20 @@ class ProductDetails extends React.Component {
                     });
                 }
             )
+            .finally(() => {
+                const refreshButton = document.getElementById('refresh-' + this.state.slug);
+                refreshButton.classList.remove('rotate')
+            })
     }
 
     render() {
-        const {current_prices, name, url, category, price, timestamp, available, store} = this.state
+        const {current_prices, name, slug, url, category, price, timestamp, available, store} = this.state
         let prices_list;
         if (current_prices) {
-                prices_list = current_prices.map((price) => <PriceTag className={'price-tag'} key={price.slug} price={price}/>)
+                prices_list = current_prices.map((price) => <PriceTag key={price.slug} price={price}/>)
             }
 
-        const price_tag = price && <PriceTag className={'price-tag'} price={{
+        const price_tag = price && <PriceTag price={{
                 price: price,
                 timestamp: timestamp,
                 available: available,
@@ -71,7 +77,7 @@ class ProductDetails extends React.Component {
                 {prices_list}
                 {price_tag}
                 <p className={'category'}>{category}</p>
-                <button className={"refresh"} onClick={this.updatePrices}><FontAwesomeIcon icon={faSyncAlt} /></button>
+                <button id={"refresh-" + slug} className={"refresh"} onClick={this.updatePrices}><FontAwesomeIcon icon={faSyncAlt} size={'lg'}/></button>
             </div>
 
         )

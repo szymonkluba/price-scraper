@@ -8,6 +8,7 @@ class ProductCard extends React.Component {
         const details = {
             current_prices: this.props.product.current_prices,
             name: this.props.product.name,
+            slug: this.props.product.slug,
             url: this.props.product.url,
             category: this.props.product.category,
             price: this.props.product.price,

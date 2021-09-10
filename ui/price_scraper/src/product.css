@@ -94,3 +94,59 @@ CARD
 .refresh:hover svg.fa-sync-alt {
     color: var(--tiles-background);
 }
+
+/*
+PRICE TAG
+*/
+
+.price-tag {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    font-size: 0.8em;
+    height: calc(var(--button-height) - 10px);
+    background-color: var(--background-gradient2);
+    margin-bottom: calc(var(--button-height) / 2);
+    border-radius: calc(calc(var(--button-height) - 10px) / 2);
+}
+
+.price-tag-store {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: calc(var(--button-width) / 2);
+    padding: 0 calc(calc(var(--button-height) - 10px) / 2) 0;
+    border-radius: calc(calc(var(--button-height) - 10px) / 2);
+    background-color: var(--secondary-color);
+}
+
+.price-tag-price {
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price-tag-timestamp {
+    font-size: 0.8em;
+    color: var(--muted);
+    position: absolute;
+    top: calc(var(--button-height) - 10px);
+    right: 10px;
+}
+
+.available {
+    width: calc(var(--button-height) - 10px);
+    height: calc(var(--button-height) - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.available > svg.fa-check-circle {
+    color: limegreen;
+}
+
+.available > svg.fa-times-circle {
+    color: red;
+}
