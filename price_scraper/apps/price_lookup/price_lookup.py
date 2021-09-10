@@ -64,7 +64,7 @@ class PriceLookup:
         availability_tag = self.soup.select_one(self.available_class)
         if availability_tag:
             is_buyable = availability_tag.get('is-buyable')
-            if is_buyable is not None and not is_buyable:
+            if is_buyable is not None and int(is_buyable):
                 return True
             return False
         return True
