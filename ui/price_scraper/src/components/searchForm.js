@@ -14,7 +14,7 @@ class SearchForm extends React.Component {
     }
 
     handleChange(event) {
-        const path = window.location.origin + `/search/?q=${event.target.value}`;
+        const path = `/search/?q=${event.target.value}`;
         this.setState({path: path});
     }
 
