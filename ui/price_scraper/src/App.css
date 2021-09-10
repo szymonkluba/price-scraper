@@ -3,8 +3,8 @@
 @import url('menu.css');
 
 :root {
-    --background-gradient1: rgba(34, 45, 62, 1);
-    --background-gradient2: rgba(32, 45, 62, 1);
+    --background-gradient1: rgb(37, 53, 71);
+    --background-gradient2: rgba(35, 53, 71, 1);
     --primary-color: white;
     --secondary-color: rgba(36, 60, 230, 1);
     --muted: grey;
@@ -12,6 +12,8 @@
     --tiles-shadow: rgba(22, 30, 41, 1);
     --border-radius-elements: 40px;
     --border-radius-buttons: 20px;
+    --button-height: 40px;
+    --button-width: 150px;
 }
 
 body {
@@ -36,11 +38,9 @@ nav {
     display: flex;
     justify-content: center;
     height: 10vh;
-    padding: 10px;
 }
 
 a {
-    font-family: "Urbanist", sans-serif;
     color: var(--primary-color);
     text-decoration: none;
     -webkit-appearance: none;
@@ -63,6 +63,7 @@ li {
 h1 {
     font-size: 1em;
     font-weight: 200;
+    width: 85%;
 }
 
 .main-content {
@@ -90,7 +91,6 @@ h1 {
 
 .previous:hover {
     background-color: var(--tiles-background);
-    box-shadow: 5px 10px 18px var(--tiles-shadow);
     animation: size-up 0.1s;
     transform: scale(1.1);
 }
@@ -102,17 +102,16 @@ h1 {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 1vw;
+    right: 2vw;
     top: var(--border-radius-elements);
     bottom: var(--border-radius-elements);
-    width: 12vw;
+    width: 11vw;
     margin: 0 0 0 0.5vw;
     border-radius: var(--border-radius-elements);
 }
 
 .next:hover {
     background-color: var(--tiles-background);
-    box-shadow: 5px 10px 18px var(--tiles-shadow);
     animation: size-up 0.1s;
     transform: scale(1.1);
 }
@@ -126,17 +125,8 @@ a.navigation {
 }
 
 img {
-    height: 100%;
+    height: 70%;
     margin: 0 auto 0 auto;
-}
-
-.image {
-    display: flex;
-    justify-items: center;
-    height: 40%;
-    background-color: var(--primary-color);
-    border-radius: var(--border-radius-elements) var(--border-radius-elements) 0 0;
-    filter: opacity(50%);
 }
 
 @-webkit-keyframes rotate-center {

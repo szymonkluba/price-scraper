@@ -56,10 +56,10 @@ class ProductDetails extends React.Component {
         const {current_prices, name, url, category, price, timestamp, available, store} = this.state
         let prices_list;
         if (current_prices) {
-                prices_list = current_prices.map((price) => <PriceTag key={price.slug} price={price}/>)
+                prices_list = current_prices.map((price) => <PriceTag className={'price-tag'} key={price.slug} price={price}/>)
             }
 
-        const price_tag = price && <PriceTag price={{
+        const price_tag = price && <PriceTag className={'price-tag'} price={{
                 price: price,
                 timestamp: timestamp,
                 available: available,

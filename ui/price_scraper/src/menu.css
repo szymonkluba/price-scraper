@@ -4,7 +4,6 @@ MENU
 
 .menu {
     background-color: var(--tiles-background);
-    box-shadow: 5px 5px 18px var(--tiles-shadow);
     position: relative;
     height: 80px;
     width: 800px;
@@ -32,15 +31,14 @@ MENU
     cursor: default;
     text-shadow: none;
     box-sizing: border-box;
-    height: 40px;
-    width: 150px;
+    height: var(--button-height);
+    width: var(--button-width);
     border: 2px solid var(--secondary-color);
     background-color: var(--secondary-color);
     color: var(--primary-color);
     padding: 1px 6px 1px 6px;
     margin: 0;
     border-radius: var(--border-radius-buttons);
-    box-shadow: 5px 5px 18px var(--tiles-shadow);
 }
 
 .menu-item:hover {
@@ -57,7 +55,6 @@ PICKER
     display: flex;
     justify-content: space-between;
     background-color: var(--tiles-background);
-    box-shadow: 5px 5px 18px var(--tiles-shadow);
     position: absolute;
     left: calc(100vw / 2 - 645px);
     top: 100px;
@@ -83,7 +80,6 @@ SEARCH
 
 .search {
     background-color: var(--tiles-background);
-    box-shadow: 5px 5px 18px var(--tiles-shadow);
     height: 80px;
     width: 470px;
     margin: 0 0 0 10px;

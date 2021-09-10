@@ -17,43 +17,62 @@ LIST
 CARD
 */
 
-.product-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 300px;
-    height: 400px;
-    background-color: var(--tiles-background);
-    border-radius: var(--border-radius-elements);
-    margin: 10px auto 10px;
-    box-shadow: 5px 10px 18px var(--tiles-shadow);
-}
-
-.product-card:hover {
-    animation: size-up 0.1s;
-    transform: scale(1.1);
-}
-
-.product-details {
-    height: 60%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 15px;
-}
-
 .category {
-    display: inline;
+    display: flex;
+    align-items: center;
+    justify-items: center;
     position: absolute;
     bottom: -15px;
     right: 10px;
     font-size: 0.9em;
     color: var(--muted);
     letter-spacing: 0.05em;
+    height: var(--button-height);
+    border-radius: var(--border-radius-buttons);
+    background-color: var(--background-gradient2);
+    padding: 0 var(--border-radius-buttons) 0;
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    height: 45%;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-elements) var(--border-radius-elements) 0 0;
+    filter: opacity(50%);
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    height: 500px;
+    background-color: var(--tiles-background);
+    border-radius: var(--border-radius-elements);
+    margin: 10px auto 10px;
+}
+
+.product-card:hover {
+    animation: size-up 0.1s;
+    transform: scale(1.1);
+    box-shadow: 5px 10px 18px var(--tiles-shadow);
+}
+
+.product-details {
+    height: 55%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 15px;
 }
 
 .refresh {
+    position: absolute;
+    top: -40px;
+    right: 0;
     height: 50px;
     width: 50px;
     border-radius: 25px;
