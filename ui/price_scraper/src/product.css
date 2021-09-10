@@ -27,8 +27,8 @@ CARD
     font-size: 0.9em;
     color: var(--muted);
     letter-spacing: 0.05em;
-    height: var(--button-height);
-    border-radius: var(--border-radius-buttons);
+    height: calc(var(--button-height) / 2);
+    border-radius: calc(var(--border-radius-buttons) / 2);
     background-color: var(--background-gradient2);
     padding: 0 var(--border-radius-buttons) 0;
 }
