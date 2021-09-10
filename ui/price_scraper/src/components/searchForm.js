@@ -14,7 +14,7 @@ class SearchForm extends React.Component {
     }
 
     handleChange(event) {
-        const path = window.location.origin + `/search/?q=${event.state.value}`;
+        const path = window.location.origin + `/search/?q=${event.target.value}`;
         this.setState({path: path});
     }
 
@@ -22,7 +22,7 @@ class SearchForm extends React.Component {
         return (
             <div className={'search'}>
                 <div className={'search-border'}>
-                    <form onSubmit={this.handleSubmit}>
+                    <form>
                         <input className={'search-input'}
                                type="search"
                                placeholder={"Search"}
