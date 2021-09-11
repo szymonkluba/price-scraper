@@ -13,6 +13,11 @@ class Picker extends React.Component {
             next: null,
             count: null
         }
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick() {
+        this.props.onItemClick(false)
     }
 
     componentDidMount() {
@@ -57,7 +62,7 @@ class Picker extends React.Component {
                         {items.map((link) => {
                             return (
                             <li key={link.slug}>
-                                <Link className={"menu-item"} to={link.products}>{link.name}</Link>
+                                <Link onClick={this.handleClick} className={"menu-item"} to={link.products}>{link.name}</Link>
                             </li>
                             )
                         })}
