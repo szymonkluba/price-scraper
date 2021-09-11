@@ -1,3 +1,4 @@
+import json
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -40,7 +41,13 @@ class FavouritesViewSet(ListAddDeleteViewSet):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def create(self, request, *args, **kwargs):
-        slug = request.POST.get('slug')
+        try:
+            body_unicode = request.body.decode('utf-8')
+            print(body_unicode)
+            body = json.loads(body_unicode)
+            slug = body.get('slug')
+        except json.decoder.JSONDecodeError:
+            slug = request.POST.get('slug')
         if slug is not None:
             product = Product.objects.get(slug=slug)
             request.user.favourites.add(product)

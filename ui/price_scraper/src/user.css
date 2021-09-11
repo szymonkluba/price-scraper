@@ -1,0 +1,196 @@
+.user-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 500px;
+
+    border-radius: var(--border-radius-elements);
+    background-color: var(--tiles-background);
+    margin: var(--border-radius-elements) auto 0;
+    padding: var(--border-radius-buttons);
+}
+
+.form-title {
+    width: 95%;
+    display: block;
+    font-size: 2em;
+    margin: 0
+}
+
+.email {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--button-height) * 2)
+}
+
+.password {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--button-height) * 2)
+}
+
+.remember-me {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: calc(var(--button-height) * 2)
+}
+
+.input-border {
+    background-color: var(--background-gradient1);
+    border: none;
+    height: var(--button-height);
+    width: 100%;
+    border-radius: var(--border-radius-buttons);
+    padding: 0;
+    position: relative;
+    background-clip: border-box;
+}
+
+.input-border > input {
+    border: none;
+    height: 100%;
+    width: calc(100% - 1.5 * var(--border-radius-buttons));
+    font: 400 1em "Urbanist", sans-serif;
+    color: var(--primary-color);
+    background-color: transparent;
+    appearance: none;
+    position: absolute;
+    left: var(--border-radius-buttons);
+    right: var(--border-radius-buttons);
+    top: 0;
+    bottom: 0;
+}
+
+.input-border > input:focus {
+    outline: none;
+}
+
+.checkbox-border {
+    display: block;
+    position: relative;
+    padding-right: 2em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    font-size: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-border input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 2px;
+    height: calc(var(--button-height) / 2);
+    width: calc(var(--button-height) / 2);
+    background-color: var(--background-gradient2);
+}
+
+.checkbox-border:hover input ~ .checkmark {
+    background-color: var(--background-gradient2);
+}
+
+.checkbox-border input:checked ~ .checkmark {
+    background-color: var(--background-gradient2);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-border input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-border .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 7px;
+    height: 12px;
+    border: solid var(--primary-color);
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.form-button {
+    font: 400 1em "Urbanist", sans-serif;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    appearance: auto;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    cursor: default;
+    text-shadow: none;
+    box-sizing: border-box;
+    height: var(--button-height);
+    width: var(--button-width);
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    padding: 1px 6px 1px 6px;
+    margin: 0;
+    border-radius: var(--border-radius-buttons);
+}
+
+.form-button:hover {
+    transform: scale(1.1);
+    color: transparent;
+    background-color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+}
+
+.error-prompt {
+    position: absolute;
+    top: 20px;
+    right: -220px;
+    width: 200px;
+    padding: calc(var(--border-radius-buttons) / 4);
+    font-size: 0.75em;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid red;
+    border-radius: var(--border-radius-buttons);
+}
+
+.error-prompt-general {
+    width: 100%;
+    padding: calc(var(--border-radius-buttons) / 4);
+    margin-top: calc(var(--border-radius-buttons) / 2);
+    font-size: 0.75em;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid red;
+    border-radius: var(--border-radius-buttons);
+}
