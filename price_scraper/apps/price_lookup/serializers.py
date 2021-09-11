@@ -19,6 +19,7 @@ class PriceSerializer(serializers.ModelSerializer):
 class StorePricesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
+
         fields = ['name', 'slug', 'url', 'category', 'price', 'store',
                   'timestamp', 'available', 'image_url', 'in_favs']
 
