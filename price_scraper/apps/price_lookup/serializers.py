@@ -6,19 +6,26 @@ from .models import Price
 
 class PriceSerializer(serializers.ModelSerializer):
     store = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    slug = serializers.SerializerMethodField()
 
     class Meta:
         model = Price
-        fields = ['price', 'store', 'available', 'timestamp']
+        fields = ['price', 'store', 'slug', 'available', 'timestamp']
+
+    def get_slug(self, obj):
+        return obj.store.slug
 
 
 class StorePricesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
-        fields = ['name', 'url', 'category', 'price',
+
+        fields = ['name', 'slug', 'url', 'category', 'price', 'store',
                   'timestamp', 'available', 'image_url', 'in_favs']
 
     name = serializers.SerializerMethodField()
+    store = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    slug = serializers.SerializerMethodField()
     image_url = serializers.SerializerMethodField()
     category = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
@@ -29,6 +36,9 @@ class StorePricesSerializer(serializers.ModelSerializer):
 
     def get_name(self, obj):
         return obj.product.name
+
+    def get_slug(self, obj):
+        return obj.product.slug
 
     def get_image_url(self, obj):
         return obj.product.image_url

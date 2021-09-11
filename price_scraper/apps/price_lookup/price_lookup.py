@@ -51,20 +51,28 @@ class PriceLookup:
         if price_tag:
             if price_tag.get('content'):
                 price = price_tag.get('content')
-            else:
+            elif price_tag.string:
                 price = price_tag.string
-            price = re.findall(r'\d*\s*\d*\s*\d+', price)
+            else:
+                price = str(price_tag)
+            price = re.findall(r'\d*\s*\d*\s*\d+', str(price))
             if price:
-                return float(price[0].replace(' ', ''))
+                return float(price[0].replace(' ', '').replace(u'\n', '').replace(u'\xa0', ''))
         return
 
     def get_availability(self):
         availability_tag = self.soup.select_one(self.available_class)
         if availability_tag:
+            is_buyable = availability_tag.get('is-buyable')
+            if is_buyable is not None and int(is_buyable):
+                return True
             return False
         return True
 
     def get_image_url(self):
         image_tag = self.soup.select_one(self.image_class)
         if image_tag:
-            return image_tag.get('src')
+            url = image_tag.get('data-src')
+            if url:
+                if 'http' in url:
+                    return url
