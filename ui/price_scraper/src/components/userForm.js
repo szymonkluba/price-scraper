@@ -89,7 +89,7 @@ class UserForm extends React.Component {
                     console.log(result)
                     if (result.ok) {
                         Auth.loginUser(result.token, this.state.remember)
-                        this.setState({redirect: "/"})
+                        this.setState({redirect: this.props.from.pathname})
                     } else {
                         this.setState({
                             error: result.json.non_field_errors,
@@ -155,7 +155,7 @@ class UserForm extends React.Component {
                         </label>}
                     </div>
                     <input type={'submit'}
-                           className={'menu-item'}
+                           className={'form-button'}
                            value={this.state.action === 'login' ? 'Login' : 'Register'}
                            onClick={this.state.action === 'login' ? this.login : this.register}/>
                     {this.state.error && <div>{this.state.error.map(message => <p>{message}</p>)}</div>}
