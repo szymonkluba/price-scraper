@@ -122,7 +122,10 @@ class UserForm extends React.Component {
             <p>Don't have account? <Link to={'/register/'}>Register here</Link>.</p>;
         if (this.state.redirect) {
             return <Redirect exact
-                             to={this.state.redirect}/>
+                             to={{
+                                 pathname: this.state.redirect,
+                                 state: {...this.props.location.state}
+                             }}/>
         } else {
             return (
                 <form className={'user-form'}>
@@ -130,25 +133,26 @@ class UserForm extends React.Component {
                     <div className={'email'}>
                         <div className={'input-border'}>
                             <input type={'email'}
-                               placeholder={'Email...'}
-                               onChange={this.handleChange}/>
+                                   placeholder={'Email...'}
+                                   onChange={this.handleChange}/>
                         </div>
                         {this.state.emailError && (<div>{this.state.emailError.map(message => <p>{message}</p>)}</div>)}
                     </div>
                     <div className={'password'}>
                         <div className={'input-border'}>
                             <input type={'password'}
-                               placeholder={'Password...'}
-                               onChange={this.handleChange}/>
+                                   placeholder={'Password...'}
+                                   onChange={this.handleChange}/>
                         </div>
                         {this.state.passwordError && (
                             <div>{this.state.passwordError.map(message => <p>{message}</p>)}</div>)}
                     </div>
                     <div className={'remember-me'}>
-                        {this.state.action === 'login' && <label className={'checkbox-border'} htmlFor={'remember'}>Remember me:
+                        {this.state.action === 'login' && <label className={'checkbox-border'}
+                                                                 htmlFor={'remember'}>Remember me:
                             <input id={'remember'}
-                                                                 type={'checkbox'}
-                                                                 onClick={this.handleChange}/>
+                                   type={'checkbox'}
+                                   onClick={this.handleChange}/>
                             <span className={'checkmark'}></span>
                         </label>}
                     </div>

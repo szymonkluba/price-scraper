@@ -5,6 +5,8 @@ import Product from "./product";
 import UserForm from "./userForm";
 import PrivateRoute from "./privateRoute";
 import Logout from "./logout";
+import AddToFavs from "./addToFavs";
+import RemoveFromFavs from "./removeFromFavs";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search)
@@ -58,10 +60,16 @@ function MainContent() {
                    render={() => <Logout/>}/>
             <PrivateRoute path={'/favourites/:pagination?'}
                           exact
-                          from={window.location}
+                          from={window.location.pathname}
                           limit={query.get('limit')}
                           offset={query.get('offset')}
                           component={ProductList}/>
+            <PrivateRoute path={'/add-to-favourites/'}
+                          exact
+                          component={AddToFavs}/>
+            <PrivateRoute path={'/remove-from-favourites/'}
+                          exact
+                          component={RemoveFromFavs}/>
 
 
         </Switch>

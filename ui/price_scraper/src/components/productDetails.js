@@ -57,7 +57,7 @@ class ProductDetails extends React.Component {
     }
 
     render() {
-        const {current_prices, name, slug, url, category, price, timestamp, available, store} = this.state
+        const {current_prices, name, slug, url, category, price, timestamp, available, store, in_favs} = this.state
         let prices_list;
         if (current_prices) {
                 prices_list = current_prices.map((price) => <PriceTag key={price.slug} price={price}/>)
@@ -76,6 +76,7 @@ class ProductDetails extends React.Component {
                 {price_tag}
                 <p className={'category'}>{category}</p>
                 <button id={"refresh-" + slug} className={"refresh"} onClick={this.updatePrices}><FontAwesomeIcon icon={faSyncAlt} size={'lg'}/></button>
+                {in_favs ? <Link to={{pathname: '/remove-from-favourites/', state: {slug}}}>X</Link> : <Link to={{pathname: '/add-to-favourites/', state: {slug}}}>X</Link>}
             </div>
 
         )
