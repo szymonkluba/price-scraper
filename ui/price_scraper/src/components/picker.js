@@ -1,6 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import SplashScreen from "./splashScreen";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronCircleRight} from "@fortawesome/free-solid-svg-icons";
 
 class Picker extends React.Component {
     constructor(props) {
@@ -51,19 +53,28 @@ class Picker extends React.Component {
             return <div className={'picker show'}>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return (
-                <div className={"picker show"} style={{height: '40px'}}>
+                <div className={"picker show"}
+                     style={{height: '40px'}}>
                     <SplashScreen className={"picker show"}/>
                 </div>
             );
         } else {
             return (
-                <div id='picker' className={'picker'}>
+                <div id='picker'
+                     className={'picker'}>
                     <ul className={'picker-items'}>
                         {items.map((link) => {
                             return (
-                            <li key={link.slug}>
-                                <Link onClick={this.handleClick} className={"menu-item"} to={link.products}>{link.name}</Link>
-                            </li>
+                                <li key={link.slug}>
+                                    <Link onClick={this.handleClick}
+                                          className={"picker-item"}
+                                          to={link.products}>
+                                        <span>
+                                            <FontAwesomeIcon icon={faChevronCircleRight}/>
+                                        </span>
+                                        {link.name}
+                                    </Link>
+                                </li>
                             )
                         })}
                     </ul>

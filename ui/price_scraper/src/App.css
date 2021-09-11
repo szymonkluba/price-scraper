@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
 @import url('product.css');
 @import url('menu.css');
+@import url('user.css');
 
 :root {
-    --background-gradient1: rgb(37, 53, 71);
+    --background-gradient1: #253547;
     --background-gradient2: rgba(35, 53, 71, 1);
     --primary-color: white;
     --secondary-color: rgba(36, 60, 230, 1);
@@ -68,6 +69,7 @@ h1 {
 
 .splash-screen {
     display: flex;
+    margin: 0 auto 0;
     align-items: center;
     justify-content: center;
     width: 100%;

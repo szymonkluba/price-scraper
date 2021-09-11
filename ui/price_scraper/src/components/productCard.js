@@ -6,15 +6,7 @@ import ThumbnailPlaceholder from "./thumbnailPlaceholder";
 class ProductCard extends React.Component {
     render() {
         const details = {
-            current_prices: this.props.product.current_prices,
-            name: this.props.product.name,
-            slug: this.props.product.slug,
-            url: this.props.product.url,
-            category: this.props.product.category,
-            price: this.props.product.price,
-            timestamp: this.props.product.timestamp,
-            available: this.props.product.available,
-            store: this.props.product.store
+            ...this.props.product
         }
         let thumbnail;
         if (this.props.product.image_url) {
