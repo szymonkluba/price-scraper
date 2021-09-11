@@ -1,17 +1,20 @@
 import React from "react";
-import {Route, Redirect} from "react-router-dom";
+import {Route} from "react-router-dom";
 import Auth from "../utils/auth";
+import UserForm from "./userForm";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    return (
+        <Route {...rest} render={(props) => {
+            return (
 
-    <Route {...rest} render={(props) => (
-      Auth.isAuthenticated() === true
-        ? <Component {...props} />
-        : <Redirect to={{
-            pathname: '/login',
-            state: { from: props.location }
-          }} />
-    )} />
-  )
+            Auth.isAuthenticated() === true
+                ? <Component {...props} from={props.from}
+                             key={props.location.key}/>
+                : <UserForm {...props} from={props.location.pathname} action={'login'}/>
+        )
+        }}/>
+    )
+}
 
 export default PrivateRoute;

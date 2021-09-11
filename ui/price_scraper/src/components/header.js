@@ -55,6 +55,28 @@ class Header extends React.Component {
         const picker = this.state.pickerVisible && <Picker key={this.state.picker_key}
                                                            url={this.state.url}
                                                            onItemClick={this.onItemClick}/>;
+        const logout = Auth.isAuthenticated() && (
+            <Link className={'menu-item'}
+                  to={{
+                      pathname: '/logout/',
+                      previous: window.history.location
+                  }}>
+                <span>
+                    <FontAwesomeIcon icon={faSignOutAlt}/>
+                </span>
+                Logout
+            </Link>
+        )
+        const login = !Auth.isAuthenticated() && (
+            <Link className={"menu-item"}
+                  to={"/login/"}
+                  action={"login"}>
+                <span>
+                    <FontAwesomeIcon icon={faSignInAlt}/>
+                </span>
+                Login
+            </Link>
+        )
         return (
             <nav>
                 <ul className={'menu'}>
@@ -62,7 +84,7 @@ class Header extends React.Component {
                         <Link className={"menu-item"}
                               to='/'>
                             <span>
-                                <FontAwesomeIcon icon={faLaptop} />
+                                <FontAwesomeIcon icon={faLaptop}/>
                             </span>
                             Products
                         </Link>
@@ -71,7 +93,7 @@ class Header extends React.Component {
                         <Link className={"menu-item"}
                               to='/favourites/'>
                             <span>
-                                <FontAwesomeIcon icon={faHeart} />
+                                <FontAwesomeIcon icon={faHeart}/>
                             </span>
                             Favourite
                         </Link>
@@ -94,22 +116,7 @@ class Header extends React.Component {
                             Stores
                         </button>
                     </li>
-                    <li>{Auth.isAuthenticated()
-                        ? <Link className={'menu-item'}
-                                to={'/logout/'} >
-                            <span>
-                                <FontAwesomeIcon icon={faSignOutAlt} />
-                            </span>
-                            Logout
-                        </Link>
-                        : <Link className={"menu-item"}
-                                to={"/login/"}
-                                action={"login"}>
-                            <span>
-                                <FontAwesomeIcon icon={faSignInAlt} />
-                            </span>
-                            Login
-                        </Link>}</li>
+                    <li>{login || logout}</li>
                 </ul>
                 <SearchForm/>
                 {picker}

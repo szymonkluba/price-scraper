@@ -43,7 +43,6 @@ class UserForm extends React.Component {
             })
             .then(
                 (result) => {
-                    console.log(result)
                     if (result.ok) {
                         this.setState({redirect: '/login/', email: result.email})
                     } else {
@@ -86,10 +85,11 @@ class UserForm extends React.Component {
             })
             .then(
                 (result) => {
-                    console.log(result)
                     if (result.ok) {
-                        Auth.loginUser(result.token, this.state.remember)
-                        this.setState({redirect: this.props.from.pathname})
+                        Auth.loginUser(result.json.auth_token, this.state.remember);
+                        const previous = this.props.from === '/login/' || this.props.from === '/logout/' ? '/' : this.props.from;
+                        this.setState({redirect: previous});
+                        window.history.go();
                     } else {
                         this.setState({
                             error: result.json.non_field_errors,
@@ -118,12 +118,10 @@ class UserForm extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         const caption = this.state.action === 'login' &&
             <p>Don't have account? <Link to={'/register/'}>Register here</Link>.</p>;
         if (this.state.redirect) {
             return <Redirect exact
-                             push
                              to={this.state.redirect}/>
         } else {
             return (

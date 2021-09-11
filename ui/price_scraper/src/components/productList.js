@@ -4,6 +4,7 @@ import {Link, withRouter} from "react-router-dom";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import SplashScreen from "./splashScreen";
+import Auth from "../utils/auth";
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -28,7 +29,15 @@ class ProductList extends React.Component {
     }
 
     fetchProducts(path) {
-        fetch(path)
+        const headers = {'Content-Type': 'application/json',}
+        if (Auth.isAuthenticated()) {
+            headers['Authorization'] = `Token ${Auth.getToken()}`
+        }
+        fetch(path, {
+            method: 'GET',
+            mode: 'cors',
+            headers: headers,
+        })
             .then(res => res.json())
             .then(
                 (result) => {

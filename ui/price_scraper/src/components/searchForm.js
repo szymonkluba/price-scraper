@@ -9,12 +9,13 @@ class SearchForm extends React.Component {
         super(props);
         this.state = {
             value: '',
+            path: '/search/?q='
         }
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
-        const path = `/search/?q=${event.target.value}`;
+        const path = this.state.path + event.target.value;
         this.setState({path: path});
     }
 

@@ -3,6 +3,8 @@ import ProductList from "./productList";
 import {Route, Switch, useLocation} from 'react-router-dom';
 import Product from "./product";
 import UserForm from "./userForm";
+import PrivateRoute from "./privateRoute";
+import Logout from "./logout";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search)
@@ -18,36 +20,50 @@ function MainContent() {
                    path='/stores/:slug/products/:pagination?'
                    render={props => <ProductList key={props.location.key}
                                                  limit={query.get('limit')}
-                                                 offset={query.get('offset')}/>} />
+                                                 offset={query.get('offset')}/>}/>
             <Route key='category_products'
                    exact
                    path='/category/:slug/products/:pagination?'
                    render={props => <ProductList key={props.location.key}
                                                  limit={query.get('limit')}
-                                                 offset={query.get('offset')}/>} />
+                                                 offset={query.get('offset')}/>}/>
             <Route key='products'
                    exact
                    path={['/', '/products/?limit=(\\d+)&offset=(\\d+)', '/products/']}
                    render={props => <ProductList key={props.location.key}
                                                  limit={query.get('limit')}
-                                                 offset={query.get('offset')}/>} />
+                                                 offset={query.get('offset')}/>}/>
             <Route key='product_details'
                    exact
                    path='/products/:slug/'
-                   render={props => <Product {...props} key={props.location.key}/>} />
+                   render={props => <Product {...props} key={props.location.key}/>}/>
             <Route key='search'
                    exact
                    path='/search/:query?'
                    render={props => <ProductList {...props} key={props.location.key}
-                                                            query={query.get('q')}/>} />
+                                                 query={query.get('q')}/>}/>
             <Route key='login'
                    exact
                    path={'/login/'}
-                   render={() => <UserForm from={window.location} action={'login'} />} />
+                   render={() => <UserForm from={window.location.pathname}
+                                           action={'login'}/>}/>
             <Route key='register'
                    exact
                    path={'/register/'}
-                   render={() => <UserForm from={window.location} action={'register'} />} />
+                   render={() => <UserForm from={window.location.pathname}
+                                           action={'register'}/>}/>
+            <Route path={'/logout/'}
+                   exact
+                   key='logout'
+                   render={() => <Logout/>}/>
+            <PrivateRoute path={'/favourites/:pagination?'}
+                          exact
+                          from={window.location}
+                          limit={query.get('limit')}
+                          offset={query.get('offset')}
+                          component={ProductList}/>
+
+
         </Switch>
     );
 }
