@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import SplashScreen from "./splashScreen";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronCircleRight, faHeart} from "@fortawesome/free-solid-svg-icons";
+import {faChevronCircleRight} from "@fortawesome/free-solid-svg-icons";
 
 class Picker extends React.Component {
     constructor(props) {
