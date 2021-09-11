@@ -19,6 +19,7 @@
 }
 
 .email {
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
@@ -27,6 +28,7 @@
 }
 
 .password {
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
@@ -169,3 +171,26 @@
     border: 2px solid var(--secondary-color);
 }
 
+.error-prompt {
+    position: absolute;
+    top: 20px;
+    right: -220px;
+    width: 200px;
+    padding: calc(var(--border-radius-buttons) / 4);
+    font-size: 0.75em;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid red;
+    border-radius: var(--border-radius-buttons);
+}
+
+.error-prompt-general {
+    width: 100%;
+    padding: calc(var(--border-radius-buttons) / 4);
+    margin-top: calc(var(--border-radius-buttons) / 2);
+    font-size: 0.75em;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid red;
+    border-radius: var(--border-radius-buttons);
+}

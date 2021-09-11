@@ -136,7 +136,7 @@ class UserForm extends React.Component {
                                    placeholder={'Email...'}
                                    onChange={this.handleChange}/>
                         </div>
-                        {this.state.emailError && (<div>{this.state.emailError.map(message => <p>{message}</p>)}</div>)}
+                        {this.state.emailError && (<div className={'error-prompt'}>{this.state.emailError.map(message => <p>{message}</p>)}</div>)}
                     </div>
                     <div className={'password'}>
                         <div className={'input-border'}>
@@ -145,7 +145,7 @@ class UserForm extends React.Component {
                                    onChange={this.handleChange}/>
                         </div>
                         {this.state.passwordError && (
-                            <div>{this.state.passwordError.map(message => <p>{message}</p>)}</div>)}
+                            <div className={'error-prompt'}>{this.state.passwordError.map(message => <p>{message}</p>)}</div>)}
                     </div>
                     <div className={'remember-me'}>
                         {this.state.action === 'login' && <label className={'checkbox-border'}
@@ -160,7 +160,7 @@ class UserForm extends React.Component {
                            className={'form-button'}
                            value={this.state.action === 'login' ? 'Login' : 'Register'}
                            onClick={this.state.action === 'login' ? this.login : this.register}/>
-                    {this.state.error && <div>{this.state.error.map(message => <p>{message}</p>)}</div>}
+                    {this.state.error && <div className={'error-prompt-general'}>{this.state.error.map(message => <p>{message}</p>)}</div>}
                     {caption}
                 </form>
             )

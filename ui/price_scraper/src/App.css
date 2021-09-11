@@ -69,6 +69,7 @@ h1 {
 
 .splash-screen {
     display: flex;
+    margin: 0 auto 0;
     align-items: center;
     justify-content: center;
     width: 100%;
