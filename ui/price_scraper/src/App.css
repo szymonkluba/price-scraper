@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+@import url('product.css');
+@import url('menu.css');
+
+:root {
+    --background-gradient1: rgb(37, 53, 71);
+    --background-gradient2: rgba(35, 53, 71, 1);
+    --primary-color: white;
+    --secondary-color: rgba(36, 60, 230, 1);
+    --muted: grey;
+    --tiles-background: rgba(22, 30, 41, 0.5);
+    --tiles-shadow: rgba(22, 30, 41, 1);
+    --border-radius-elements: 40px;
+    --border-radius-buttons: 20px;
+    --button-height: 40px;
+    --button-width: 150px;
+}
+
+body {
+    font-family: 'Urbanist', sans-serif;
+    color: var(--primary-color);
+    font-size: 16px;
+    background: radial-gradient(circle, var(--background-gradient1) 0%, var(--background-gradient2) 100%);
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background: linear-gradient(180deg, var(--background-gradient1) 67%, var(--background-gradient2) 100%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    -webkit-appearance: none;
+}
+
+a:visited {
+    color: var(--primary-color);
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: inline;
+    list-style-type: none;
+}
+
+h1 {
+    font-size: 1em;
+    font-weight: 200;
+    width: 85%;
+}
+
+.splash-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.main-content {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.previous {
+    background-color: transparent;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 1vw;
+    top: var(--border-radius-elements);
+    bottom: var(--border-radius-elements);
+    width: 12vw;
+    margin: 0 0 0 0.5vw;
+    border-radius: var(--border-radius-elements);
+}
+
+.previous:hover {
+    background-color: var(--tiles-background);
+    animation: size-up 0.1s;
+    transform: scale(1.1);
+}
+
+.next {
+    background-color: transparent;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 2vw;
+    top: var(--border-radius-elements);
+    bottom: var(--border-radius-elements);
+    width: 11vw;
+    margin: 0 0 0 0.5vw;
+    border-radius: var(--border-radius-elements);
+}
+
+.next:hover {
+    background-color: var(--tiles-background);
+    animation: size-up 0.1s;
+    transform: scale(1.1);
+}
+
+a.navigation {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding: 100vh 6vw 100vh 6vw;
+    margin: 0 -50%;
+}
+
+img {
+    height: 70%;
+    margin: 0 auto 0 auto;
+}
+
+@-webkit-keyframes rotate-center {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-center {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes size-up {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+
+}
+
+@keyframes unroll {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes roll {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.hide {
+    animation: roll 0.3s;
+    animation-play-state: running;
+}
+
+.show {
+    animation: unroll 0.3s;
+}
+
+.rotate {
+    -webkit-animation: rotate-center 1s ease-in-out infinite both;
+    animation: rotate-center 1s ease-in-out infinite both;
+}
+
+.loading {
+	-webkit-animation: rotate-center 1s linear infinite both;
+	        animation: rotate-center 1s linear infinite both;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--tiles-background);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--tiles-shadow);
+}

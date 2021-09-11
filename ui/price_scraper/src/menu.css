@@ -1,0 +1,152 @@
+/*
+MENU
+*/
+
+.menu {
+    background-color: var(--tiles-background);
+    position: relative;
+    height: 80px;
+    width: 800px;
+    margin: 0 10px 0 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: var(--border-radius-elements);
+}
+
+.menu-item {
+    font: 400 1em "Urbanist", sans-serif;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    appearance: auto;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    cursor: default;
+    text-shadow: none;
+    box-sizing: border-box;
+    height: var(--button-height);
+    width: var(--button-width);
+    border: 2px solid var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 1px 6px 1px 6px;
+    margin: 0;
+    border-radius: var(--border-radius-buttons);
+}
+
+.menu-item:hover {
+    transform: scale(1.1);
+    color: var(--tiles-background);
+    background-color: var(--secondary-color);
+}
+
+/*
+PICKER
+*/
+
+.picker {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--tiles-background);
+    position: absolute;
+    left: calc(100vw / 2 - 645px);
+    top: 100px;
+    width: 800px;
+    height: auto;
+    box-sizing: content-box;
+    border-radius: var(--border-radius-elements);
+    z-index: 2;
+}
+
+.picker-items {
+    font-family: "Urbanist", sans-serif;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10px;
+}
+
+/*
+SEARCH
+*/
+
+.search {
+    background-color: var(--tiles-background);
+    height: 80px;
+    width: 470px;
+    margin: 0 0 0 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: var(--border-radius-elements);
+    background-clip: content-box;
+}
+
+.search-border {
+    background-color: var(--background-gradient1);
+    border: none;
+    height: 40px;
+    width: 420px;
+    border-radius: var(--border-radius-buttons);
+    padding: 0;
+    position: relative;
+    background-clip: border-box;
+}
+
+.search-input {
+    border: none;
+    height: 100%;
+    width: 360px;
+    font: 400 1em "Urbanist", sans-serif;
+    color: var(--primary-color);
+    background-color: transparent;
+    appearance: none;
+    position: absolute;
+    left: 50px;
+    top: 0;
+    bottom: 0;
+}
+
+.search-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 1em;
+    width: 1em;
+    border-radius: 50em;
+    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
+    background-size: contain;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-input:focus::-webkit-search-cancel-button {
+    opacity: .3;
+    pointer-events: all;
+    filter: invert(1)
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-button {
+    font-family: "Urbanist", sans-serif;
+    border: none;
+    background: none;
+    color: var(--muted);
+    position: absolute;
+    left: 20px;
+    top: 30%;
+    bottom: 30%;
+}
+
+.search-button:visited {
+    color: var(--muted)
+}
