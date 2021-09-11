@@ -17,14 +17,14 @@ class Header extends React.Component {
     onItemClick(pickerVisible) {
         const picker = document.getElementById('picker');
         if (picker) {
-                if (picker.classList.contains('show')) {
-                    picker.classList.remove('show')
-                }
-                picker.classList.add('hide')
+            if (picker.classList.contains('show')) {
+                picker.classList.remove('show')
             }
-            setTimeout(() => {
-                this.setState({pickerVisible});
-            }, 250)
+            picker.classList.add('hide')
+        }
+        setTimeout(() => {
+            this.setState({pickerVisible});
+        }, 250)
     }
 
     displayPicker(url, key) {
@@ -67,8 +67,9 @@ class Header extends React.Component {
                                 onClick={() => this.displayPicker(window.location.origin.replace('3000', '8000') + '/stores/', 'stores')}>Stores
                         </button>
                     </li>
-                    <li><a className={"menu-item"}
-                           href={"login"}>Login</a></li>
+                    <li><Link className={"menu-item"}
+                              to={"/login/"}
+                              action={"login"}>Login</Link></li>
                 </ul>
                 <SearchForm/>
                 {picker}

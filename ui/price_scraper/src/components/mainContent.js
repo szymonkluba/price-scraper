@@ -2,6 +2,7 @@ import React from "react";
 import ProductList from "./productList";
 import {Route, Switch, useLocation} from 'react-router-dom';
 import Product from "./product";
+import UserForm from "./userForm";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search)
@@ -39,6 +40,14 @@ function MainContent() {
                    path='/search/:query?'
                    render={props => <ProductList {...props} key={props.location.key}
                                                             query={query.get('q')}/>} />
+            <Route key='login'
+                   exact
+                   path={'/login/'}
+                   render={() => <UserForm from={window.location} action={'login'} />} />
+            <Route key='register'
+                   exact
+                   path={'/register/'}
+                   render={() => <UserForm from={window.location} action={'register'} />} />
         </Switch>
     );
 }
