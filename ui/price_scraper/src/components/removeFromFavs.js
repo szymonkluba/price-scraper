@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "../utils/auth";
+import {Redirect} from "react-router-dom";
 
 class RemoveFromFavs extends React.Component {
     componentDidMount() {
@@ -12,18 +13,11 @@ class RemoveFromFavs extends React.Component {
             method: "DELETE",
             mode: "cors",
             headers: headers,
-        }).then(response => {
-                return new Promise((resolve) => response.json()
-                    .then((json) => resolve({
-                        status: response.status,
-                        ok: response.ok,
-                        json,
-                    })));
-            })
+        })
     }
 
     render() {
-        return null
+        return <Redirect to={this.props.location.state.previous} />
     }
 }
 

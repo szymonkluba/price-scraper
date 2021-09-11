@@ -166,6 +166,27 @@ PRICE TAG
     color: red;
 }
 
+.favs-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -220px;
+    left: 0;
+    border-radius: var(--border-radius-buttons);
+    background-color: var(--background-gradient2);
+    min-width: var(--button-height);
+    height: var(--button-height);
+}
+
+.favs-regular {
+    color: var(--muted);
+}
+
+.favs-solid {
+    color: red;
+}
+
 /*
 PRICES HISTORY
 */

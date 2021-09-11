@@ -2,7 +2,8 @@ import React from "react";
 import PriceTag from "./priceTag";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSyncAlt} from "@fortawesome/free-solid-svg-icons";
+import {faHeart, faSyncAlt} from "@fortawesome/free-solid-svg-icons";
+import {faHeart as faHeartRegular} from "@fortawesome/free-regular-svg-icons"
 
 class ProductDetails extends React.Component {
     constructor(props) {
@@ -60,23 +61,37 @@ class ProductDetails extends React.Component {
         const {current_prices, name, slug, url, category, price, timestamp, available, store, in_favs} = this.state
         let prices_list;
         if (current_prices) {
-                prices_list = current_prices.map((price) => <PriceTag key={price.slug} price={price}/>)
-            }
+            prices_list = current_prices.map((price) => <PriceTag key={price.slug}
+                                                                  price={price}/>)
+        }
 
         const price_tag = price && <PriceTag price={{
-                price: price,
-                timestamp: timestamp,
-                available: available,
-                store: store,
-            }} />
+            price: price,
+            timestamp: timestamp,
+            available: available,
+            store: store,
+        }}/>
         return (
             <div className={'product-details'}>
                 <Link to={url}><h1>{name}</h1></Link>
                 {prices_list}
                 {price_tag}
                 <p className={'category'}>{category}</p>
-                <button id={"refresh-" + slug} className={"refresh"} onClick={this.updatePrices}><FontAwesomeIcon icon={faSyncAlt} size={'lg'}/></button>
-                {in_favs ? <Link to={{pathname: '/remove-from-favourites/', state: {slug}}}>X</Link> : <Link to={{pathname: '/add-to-favourites/', state: {slug}}}>X</Link>}
+                <button id={"refresh-" + slug}
+                        className={"refresh"}
+                        onClick={this.updatePrices}><FontAwesomeIcon icon={faSyncAlt}
+                                                                     size={'lg'}/></button>
+                {in_favs
+                    ? <Link to={{pathname: '/remove-from-favourites/', state: {slug, previous: window.location.pathname}}}>
+                        <span className={'favs-button'}>
+                            <FontAwesomeIcon className={"favs-solid"} icon={faHeart} size={'lg'}/>
+                        </span>
+                    </Link>
+                    : <Link to={{pathname: '/add-to-favourites/', state: {slug, previous: window.location.pathname}}}>
+                        <span className={'favs-button'}>
+                            <FontAwesomeIcon className={"favs-regular"} icon={faHeartRegular} size={'lg'}/>
+                        </span>
+                    </Link>}
             </div>
 
         )
