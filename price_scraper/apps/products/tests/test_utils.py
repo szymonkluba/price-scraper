@@ -1,9 +1,10 @@
-from apps.price_lookup.models import Price
-from apps.products.utils import NoPriceUpdateException
-from apps.products.utils import update_product_prices
 from django.test import TestCase
 from unittest.mock import MagicMock
 from unittest.mock import patch
+
+from ...price_lookup.models import Price
+from ...products.utils import NoPriceUpdateException
+from ...products.utils import update_product_prices
 
 
 class ProductPricesUpdateTests(TestCase):

@@ -1,9 +1,10 @@
-from apps.products.models import Category
-from apps.products.models import Product
-from apps.products.views import CategoryViewSet
 from rest_framework.reverse import reverse_lazy
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APITestCase
+
+from ...products.models import Category
+from ...products.models import Product
+from ...products.views import CategoryViewSet
 
 
 # noinspection DuplicatedCode

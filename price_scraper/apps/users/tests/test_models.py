@@ -1,5 +1,6 @@
-from apps.users.models import CustomUser
 from django.test import TestCase
+
+from ...users.models import CustomUser
 
 
 class UserManagerTests(TestCase):

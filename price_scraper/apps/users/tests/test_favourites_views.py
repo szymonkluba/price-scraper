@@ -1,12 +1,13 @@
-from apps.products.models import Category
-from apps.products.models import Product
-from apps.users.models import CustomUser
-from apps.users.views import FavouritesViewSet
 from rest_framework import status
 from rest_framework.reverse import reverse_lazy
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APITestCase
 from rest_framework.test import force_authenticate
+
+from ...products.models import Category
+from ...products.models import Product
+from ...users.models import CustomUser
+from ...users.views import FavouritesViewSet
 
 
 class FavouritesViewsTests(APITestCase):

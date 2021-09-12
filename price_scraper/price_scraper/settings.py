@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'apps.stores',
     'apps.products',
     'apps.price_lookup',
-    'apps.apps_tests',
 ]
 
 MIDDLEWARE = [
@@ -102,7 +101,7 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': 5432,
-    }
+    },
 }
 
 

@@ -1,11 +1,12 @@
-from apps.price_lookup.models import Price
-from apps.products.models import Category
-from apps.products.models import Product
-from apps.stores.models import Store
-from apps.stores.views import StoreViewSet
 from rest_framework.reverse import reverse_lazy
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APITestCase
+
+from ...price_lookup.models import Price
+from ...products.models import Category
+from ...products.models import Product
+from ...stores.models import Store
+from ...stores.views import StoreViewSet
 
 
 class StoresViewsTest(APITestCase):

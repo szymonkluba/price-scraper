@@ -1,13 +1,14 @@
-from apps.price_lookup.models import StoreSelectors
-from apps.products.models import Category
-from apps.products.models import Product
-from apps.products.views import ProductViewSet
-from apps.stores.models import Store
 from rest_framework import status
 from rest_framework.reverse import reverse_lazy
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APITestCase
 from unittest.mock import patch
+
+from ...price_lookup.models import StoreSelectors
+from ...products.models import Category
+from ...products.models import Product
+from ...products.views import ProductViewSet
+from ...stores.models import Store
 
 
 # noinspection DuplicatedCode
