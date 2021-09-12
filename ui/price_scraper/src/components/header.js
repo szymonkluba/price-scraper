@@ -59,7 +59,7 @@ class Header extends React.Component {
             <Link className={'menu-item'}
                   to={{
                       pathname: '/logout/',
-                      previous: window.history.location
+                      state: {previous: window.location.pathname},
                   }}>
                 <span>
                     <FontAwesomeIcon icon={faSignOutAlt}/>
@@ -69,7 +69,10 @@ class Header extends React.Component {
         )
         const login = !Auth.isAuthenticated() && (
             <Link className={"menu-item"}
-                  to={"/login/"}
+                  to={{
+                      pathname: "/login/",
+                      state: {previous: window.location.pathname},
+                  }}
                   action={"login"}>
                 <span>
                     <FontAwesomeIcon icon={faSignInAlt}/>
